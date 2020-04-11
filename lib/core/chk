@@ -1,0 +1,29 @@
+#!/bin/sh
+# generic check function for arguments and variables
+chk(){
+  
+  case $1 in
+    -e) ## check argument existence
+      test -z "$2" && { 
+          shift 2; 
+	  msg="no argument"
+	  test "$1" = "-m" && { shift; msg="$*"; }
+	  throw $msg
+	} ;;
+    -v) ## check the variable set or not
+      test $# -eq 1 && noarg_error
+      sanitize $2; eval "chk -e \$$2" ;;
+    -n) ## check integer or not
+      chk -e $2
+      test $2 -ge 0 2>/dev/null || throw argument must be an integer: $2 ;;
+    -f) ## check whether file exist or not
+      chk -e $2
+      test -f $2 || throw $2 not exist ;; 
+    -x) ## check whether executable exist in PATH or not
+      chk -e $2
+      command -v $2 > /dev/null || throw $2 not found in PATH ;; 
+    *) ## default: equivalent to -e option
+      sanitize $1; chk -e $1 ;;
+  esac
+  return 0
+}

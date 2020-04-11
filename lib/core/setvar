@@ -1,0 +1,8 @@
+#!/bin/sh
+# setter for any variable
+setvar(){
+  test $# -eq 2 || throw just two arguments needed
+  sanitize $1 $2
+  eval "$1=$2"; 
+  return 0
+}

@@ -1,0 +1,17 @@
+#!/bin/sh
+# check external executables to resolve dependency
+require(){
+  chk -e $1
+  for i in $@; do 
+    if echo $1 | grep / > /dev/null ; then
+      if test -d ${SHELIB_DIR:?SHELIB_DIR not defined}; then
+        #shelib module loading
+        . $SHELIB_DIR/$1 || return 1
+      fi
+    else
+      #simple check of executable
+      sanitize $i; chk -x $i; 
+    fi
+  done
+  return 0
+}

@@ -1,0 +1,6 @@
+#!/bin/sh
+# sanitization for unfortunate contamination
+sanitize(){
+  echo $* | grep -qE \[\;\\\"\|\'\`\{\}\<\>\&\#\!\$\] && throw invalid argument detected $@
+  :
+}

@@ -1,0 +1,8 @@
+#!/bin/sh
+#delete and pass arguments for next callstack
+rmarg(){
+  chk -n $1
+  chk -e $2
+  shift $1; shift;
+  callstack $@
+}

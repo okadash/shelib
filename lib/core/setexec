@@ -1,0 +1,8 @@
+#!/bin/sh
+# set execcmd to break callstack
+setexec(){
+  test $# -eq 0 && throw argument needed
+  sanitize $*
+  exec_cmd="$*"
+  return 0
+}

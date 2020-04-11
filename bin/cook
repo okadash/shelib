@@ -1,0 +1,33 @@
+#!/bin/sh
+# cooking shelib functions
+# usage: cook shelib_function
+# description init for the call tree of shelib functions
+cook(){
+  SHELIB_DIR=$HOME/.shelib/lib
+  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
+
+  case $1 in 
+    -v) #invoke shelib function with verbose mode
+      set -o verbose; shift;;
+    -x) #invoke shelib function with xtrace mode
+      set -o xtrace; shift;;
+    -f|--func) #cook argument function without PATH checking
+      shift;;
+    *) # check existence of an executable $1 in PATH
+      command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
+  esac
+
+  chk -e $1
+  # if function $1 not found, try to load it from the executable in PATH
+  type $1 | grep -qE "$1[[:blank:]]*\(\)" && return 0 || . `command -v $1`;
+  $@ || throw shelf broken;
+  ## todo: load default.env as an external file
+  type loadenv > /dev/null 2> /dev/null && loadenv
+  ## todo: run module.init if exist 
+  type loadmod > /dev/null 2> /dev/null && loadmod
+  ## remove function name itself
+  shift;
+  ## call execution stack 
+  callstack $@
+}
+cook $@
