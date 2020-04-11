@@ -4,9 +4,12 @@
 # description init for the call tree of shelib functions
 cook(){
   SHELIB_DIR=$HOME/.shelib/lib
+  SHELIB_VERSION=0.1.0
   for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
 
   case $1 in 
+    -V|--version) #show shelib version
+      echo ${SHELIB_VERSION:?shelib version not defined}; exit;
     -v) #invoke shelib function with verbose mode
       set -o verbose; shift;;
     -x) #invoke shelib function with xtrace mode
