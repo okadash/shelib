@@ -17,5 +17,5 @@ cook yourfunction $@
 
 run ./install.sh
 
-#TODO
+# TODO
 Too many...
