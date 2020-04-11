@@ -9,7 +9,7 @@ cook(){
 
   case $1 in 
     -V|--version) #show shelib version
-      echo ${SHELIB_VERSION:?shelib version not defined}; exit;
+      echo shelib-${SHELIB_VERSION:?shelib version not defined} \(core/cook\); exit;;
     -v) #invoke shelib function with verbose mode
       set -o verbose; shift;;
     -x) #invoke shelib function with xtrace mode
