@@ -1,0 +1,15 @@
+#!/bin/sh
+# askyn
+# Usage: askyn
+
+askyn(){
+  while :; do
+    printf "$* [y/n] "
+    read resp;
+    case $resp in
+      y) exit 0; ;;
+      n) exit 1; ;;
+      *) echo Speifiy y or n.; break; ;;
+    esac
+  done
+}

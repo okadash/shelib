@@ -1,0 +1,73 @@
+#!/bin/sh
+# showhelp
+# show help for shelib-style inline document
+
+showhelp(){
+  # list subcommand description
+  list_help_short(){
+    for k in \
+      '\*' \
+      "-vE ^.+(\*|${SHELIB_HELP_MISC:+$SHELIB_HELP_MISC|}BREAK_OPT).*$" \
+      "-E ^[^\\\*]+BREAK_OPT" ; do 
+        list_help_core \
+          | grep $k \
+          | sed -r -e "s/(\)|\|).*//g" -e s/\#\#\.\+//g \
+          | grep -vE "^[[:blank:]]*$" \
+          | tr -d \\\ \
+          | tr \\\n \\\| \
+          | sed -r -e s/\\\|\ \*\$// \
+          | sed -r -e s/\\\|-//g
+    done | sed -r \
+      -e "s/[[:alnum:]\*]-/&[/g" \
+      -e "s/-\[/] [-/g" 
+  }
+  list_help_core(){
+    : ${SHELIB_HELP_MISC:="MISC"}
+    grep -EA100 \^\ \*\#$SHELIB_HELP_TARGET `which $this` \
+      | grep -EB100 \^\ \*\#$SHELIB_HELP_TARGET \
+      | grep -A100 case\ \\\$1 \
+      | grep -B100 esac\ \*\$ \
+      | grep -vE case\|esac \
+      | grep -E "([[:blank:]]*[[:alnum:]]+\)|[[:blank:]]*##.+)" 
+  }
+
+  # generate help description from comment lines
+  list_help_detail(){
+    list_help_core \
+      | sed -r -e s/\^/SOL/g \
+               -e "s/SOL[[:blank:]]*##/\t##/g" \
+      | tr -d \\\n \
+      | sed -e s/SOL/\\\n/g \
+      | sed -r -e s/\^\ \+/\ \ /g \
+               -e s/\#\#/\\\t/g \
+               -e "s/^[^\(]+\)/&DEL/g" \
+               -e "s/\)DEL//g" \
+               -e "s/\#[[:punct:][:alnum:]]+/DEL&DEL/g" \
+               -e "s/DEL\#?//g" \
+               -e "s/DEL *\t*/\t/g" \
+               -e "s/\|[[:alnum:]]+//g" \
+               -e "s/\tBREAK_OPT/\t/g" \
+               -e "s/^[^\t]{22}[^[:space:]]*\]?/&TABDEL/" \
+               -e "s/[[:space:]]*TABDEL[[:space:]]+/\t/g" \
+               -e "s/^[^\t]{1,10}\t/&TABADD/" \
+               -e "s/TABADD/\t/g" \
+      | grep -v ${SHELIB_HELP_MISC:-GOCHAS_SHELIB_HELPME_HOGE}
+      echo;
+  }
+
+  chk_helpdoc_exist(){
+    if list_help_core > /dev/null 2> /dev/null ; then return 0;
+    else return 1; 
+    fi
+  }
+
+  show_usage(){
+    echo ${this}${version:+-$version} 
+    echo usage: $this [`list_help_short`]
+  }
+
+  for i in SHELIB_OPTS SHELIB_SUBCOM SHELIB_ARGS; do 
+    SHELIB_HELP_TARGET=$i; chk_helpdoc_exist && show_usage ; done
+  for i in SHELIB_OPTS SHELIB_SUBCOM SHELIB_ARGS; do 
+    SHELIB_HELP_TARGET=$i; chk_helpdoc_exist && list_help_detail ; done
+}
