@@ -3,22 +3,30 @@
 # usage: cook shelib_function
 # description init for the call tree of shelib functions
 cook(){
+  # shelib global variables
   SHELIB_DIR=$HOME/.shelib/lib
-  SHELIB_VERSION=0.1.0
+  SHELIB_VERSION=0.1.1
   for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
 
   case $1 in 
-    -V|--version) #show shelib version
+    ##show shelib version
+    -V|--version) 
       echo shelib-${SHELIB_VERSION:?shelib version not defined} \(core/cook\); exit;;
-    -v) #invoke shelib function with verbose mode
+    ##invoke shelib function with verbose mode
+    -v)
       set -o verbose; shift;;
-    -x) #invoke shelib function with xtrace mode
+    ##invoke shelib function with xtrace mode
+    -x)
       set -o xtrace; shift;;
-    -f|--func) #cook argument function without PATH checking
+    ##cook argument function without PATH checking
+    -f|--func)
       shift;;
     *) # check existence of an executable $1 in PATH
       command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
   esac
+
+  # callstack identifier $this
+  this=$1
 
   chk -e $1
   # if function $1 not found, try to load it from the executable in PATH
