@@ -51,6 +51,7 @@ showhelp(){
                -e "s/[[:space:]]*TABDEL[[:space:]]+/\t/g" \
                -e "s/^[^\t]{1,10}\t/&TABADD/" \
                -e "s/TABADD/\t/g" \
+               -e "s/\t{4}/\t\t\t/" \
       | grep -v ${SHELIB_HELP_MISC:-GOCHAS_SHELIB_HELPME_HOGE}
       echo;
   }
