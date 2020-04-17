@@ -17,3 +17,8 @@ setup(){
   test "$status" -eq 1
   test -z "$output"
 }
+
+@test "異常系 引数が未指定" {
+  run silent 
+  test "$status" -eq 1
+}
