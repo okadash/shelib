@@ -8,7 +8,7 @@ loadenv(){
   DUMENV="dumdum"
 }
 
-#SHELIB_OPTS
+#SHELIB_OPTIONS
 parseopts(){
   case $1 in
     -t|--type) #type
@@ -33,7 +33,7 @@ parseopts(){
 
     -h|--help) #[--detail|--all] ##BREAK_OPT
     ##show this help
-    setexec "showhelp $2 $this" ;;
+    setexec "showhelp" ;;
 
     -v|--version) ##BREAK_OPT
     ##show version
@@ -46,7 +46,7 @@ parseopts(){
   esac
 
 }
-#SHELIB_OPTS
+#SHELIB_OPTIONS
 
 }
 

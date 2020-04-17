@@ -22,9 +22,9 @@ showhelp(){
       -e "s/-\[/] [-/g" 
   }
   list_help_core(){
-    : ${SHELIB_HELP_MISC:="MISC"}
-    grep -EA100 \^\ \*\#$SHELIB_HELP_TARGET `which $this` \
-      | grep -EB100 \^\ \*\#$SHELIB_HELP_TARGET \
+    : ${SHELIB_HELP_MISC:="MISC"} > /dev/null
+    grep -EA100 \^\ \*\#$SHELIB_HELP_HEADER_CLASS `which $this` \
+      | grep -EB100 \^\ \*\#$SHELIB_HELP_HEADER_CLASS \
       | grep -A100 case\ \\\$1 \
       | grep -B100 esac\ \*\$ \
       | grep -vE case\|esac \
@@ -33,6 +33,9 @@ showhelp(){
 
   # generate help description from comment lines
   list_help_detail(){
+    ## show help header
+    echo $SHELIB_HELP_HEADER_CLASS | sed -r -e s/SHELIB_//g -e s/\$/:/ | tr A-Z a-z | tr -d \\\n
+    ## show help body
     list_help_core \
       | sed -r -e s/\^/SOL/g \
                -e "s/SOL[[:blank:]]*##/\t##/g" \
@@ -65,10 +68,11 @@ showhelp(){
   show_usage(){
     echo ${this}${version:+-$version} 
     echo usage: $this [`list_help_short`]
+    echo
   }
 
-  for i in SHELIB_OPTS SHELIB_SUBCOM SHELIB_ARGS; do 
-    SHELIB_HELP_TARGET=$i; chk_helpdoc_exist && show_usage ; done
-  for i in SHELIB_OPTS SHELIB_SUBCOM SHELIB_ARGS; do 
-    SHELIB_HELP_TARGET=$i; chk_helpdoc_exist && list_help_detail ; done
+  for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
+    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && show_usage ; done
+  for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
+    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && list_help_detail ; done
 }
