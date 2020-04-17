@@ -1,6 +1,6 @@
 #!/bin/sh
-#delete and pass arguments for next callstack
-rmarg(){
+#shift and pass arguments for next callstack
+shiftstack(){
   chk -n $1
   chk -e $2
   shift $1; shift;
