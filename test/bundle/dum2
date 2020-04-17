@@ -33,7 +33,7 @@ parseopts(){
 
     -h|--help) #[--detail|--all] ##BREAK_OPT
     ##show this help
-    setexec "showhelp" ;;
+    setexec "showhelp $2" ;;
 
     -v|--version) ##BREAK_OPT
     ##show version

@@ -73,6 +73,6 @@ showhelp(){
 
   for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
     SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && show_usage ; done
-  for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
+  test "$1" = "--short" || for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
     SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && list_help_detail ; done
 }
