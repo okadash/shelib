@@ -4,7 +4,6 @@
 askyn(){
   echo -n  $@\  ;
   while read key; do 
-    echo -n  $@\  ;
     test ! -z "$key" && {
       test ${key} = "y" && return 0;
       test ${key} = "n" && return 1;
@@ -13,19 +12,22 @@ askyn(){
 }
 shelib_copysrc(){
   test $# -eq 2 || { echo invalid argument, abort ; exit 1 ; }
-  if test -d $2 || test -f $2 ; then 
+  if test -d $2 || test -f $2 && test ${FORCED_INSTALL:=0} -ne 1 ; then 
     askyn $2: already exist, overwrite? \[y/n\] && {
-      rm -rv $2
-      cp -av $1 $2
-    } || { 
+      rm -r $VERBOSE_OPTION $2
+      cp -a $VERBOSE_OPTION $1 $2
+    } || {
       echo not installed.;
       return 1;
     }
   else
-    cp -av $1 $2
+    rm -r $VERBOSE_OPTION $2
+    cp -a $VERBOSE_OPTION $1 $2
   fi
 }
 
+test "$1" = "-f" || test "$1" = "--force" && { : ${FORCED_INSTALL:=1}; shift; }
+test "$1" = "-v" || test "$1" = "--verbose" && { : ${VERBOSE_OPTION:=-v}; shift; }
 : ${SHELIB_ROOT:=$HOME/.shelib}
 : ${SHELIB:=$SHELIB_ROOT/lib}
 : ${SHELIB_EXEC:=$SHELIB_ROOT/bin}
@@ -44,9 +46,9 @@ if echo $PATH | grep -E :\?$HOME/.shelib/bin:\? > /dev/null; then
   :;
 else
   case $SHELL in 
-    */bash) echo PATH=$HOME/.shelib/bin:$PATH >> $HOME/.bashrc ;;
-    *) echo PATH=$HOME/.shelib/bin:$PATH >> $HOME/.shrc ;;
+    */bash) echo PATH=$HOME/.shelib/bin:$PATH | tee -a $HOME/.bashrc ;;
+    *) echo PATH=$HOME/.shelib/bin:$PATH | tee -a $HOME/.shrc ;;
   esac
 fi
 
-echo installed.; exit;
+echo shelib installed.; exit;
