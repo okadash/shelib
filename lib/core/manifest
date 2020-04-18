@@ -1,0 +1,12 @@
+# MANIFEST
+
+SHELIB_MODULE_VERSION=0.2.3
+SHELIB_MODULE_DESC="Essential library for shelib, shef and all shelib function"
+MODULE_AUTHER_NAME="Okadarien Saru"
+MODULE_AUTHER_EMAIL="okadas@dev.sysnk.net"
+
+# COMMAND REQUIREMENT
+# require grep sed head od dd printf
+
+# MODULE REQUIREMENT
+# require dummy funny hoge
