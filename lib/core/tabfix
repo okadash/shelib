@@ -1,0 +1,10 @@
+#!/bin/sh
+# rearrange document from stream to add/delete tab
+tabfix(){
+  sed -r \
+    -e "s/^[^\t]{22}[^[:space:]]*\]?/&TABDEL/" \
+    -e "s/[[:space:]]*TABDEL[[:space:]]+/\t/g" \
+    -e "s/^[^\t]{1,10}\t/&TABADD/" \
+    -e "s/TABADD/\t/g" \
+    -e "s/\t{4}/\t\t\t/"
+}

@@ -45,7 +45,7 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
-* Now we support 11 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *set_exec*, *showhelp* and *chk*
+* Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *set_exec*, *showhelp*, *tabfix* and *chk*
 
 # TODO
 * add comments for *require()* conditions
