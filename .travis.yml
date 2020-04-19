@@ -1,0 +1,9 @@
+language: sh
+os:
+- linux
+install: 
+- curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
+- tar xzf bats.tgz
+script: 
+- bash -c 'for i in test/*.bats; do ./bats-core-1.1.0/bin/bats $i; done'
+- sh -c 'for i in test/*.bats; do ./bats-core-1.1.0/bin/bats $i; done'
