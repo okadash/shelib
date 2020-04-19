@@ -41,15 +41,6 @@ showhelp(){
                -e "s/SOL[[:blank:]]*##/\t##/g" \
       | tr -d \\\n \
       | sed -e s/SOL/\\\n/g \
-      | sed -r -e s/\^\ \+/\ \ /g \
-               -e s/\#\#/\\\t/g \
-               -e "s/^[^\(]+\)/&DEL/g" \
-               -e "s/\)DEL//g" \
-               -e "s/\#[[:punct:][:alnum:]]+/DEL&DEL/g" \
-               -e "s/DEL\#?//g" \
-               -e "s/DEL *\t*/\t/g" \
-               -e "s/\|[[:alnum:]]+//g" \
-               -e "s/\tBREAK_OPT/\t/g" \
       | tabfix \
       | grep -v ${SHELIB_HELP_MISC:-GOCHAS_SHELIB_HELPME_HOGE}
       echo;
