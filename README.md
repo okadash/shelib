@@ -26,22 +26,24 @@ cd this_repo_path
 ## shelib callstack
 shelib is designed to reduce loop declarations, and to unify argument parsing mechanisms for shell functions.
 *cook* sets shelib callstack for the cooked function (hereby called **shelib function**) and *callstack* function is immediately invoked after the cook execution. 
+
 *callstack()* function invokes reserved parsers *parsecmds*, *parseopts* and *parseargs* and if you declare these reserved parser functions inside the shelib function, each of them is invoked in the order and the new callstack loop is set to run *shiftstack()* with shift value and arguments $@. 
+
 *shiftstack()* sets a new callstack for exist arguments $@ and make more one loop for given arguments with shift value. (so two arguments needed)
 If no *shiftstack()* runs, all parser and *execute()* simply invoked, and exit.
 All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
 
 ## shelib global component
 These functions are reserved inside *cook*. If exist, they are invoked at one time for the shelib function
-* loadenv: fair to declare environmental variables for shelib funcitons 
-* loadmod: fair to load external shell scripts or shell functions
+* loadenv: good to declare environmental variables for shelib funcitons 
+* loadmod: good to load external shell scripts or shell functions
 
 ## callstack component
 These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. (invoked at one time without *shiftstack()*)
-* parsecmds: subcommand parser, fair to describe *if* or *case* syntax for your subcommand definition
+* parsecmds: subcommand parser, good to describe *if* or *case* syntax for your subcommand definition
 * parseopts: option parser
 * parseargs: argument parser
-* execute: execution stack. if exist, run it at last of the callstack. If there are any command insersion by *setexec()*, the set command runs after *execute*.
+* execute: execution stack. if exist, run it at the last of the callstack. If there are any command insersion by *setexec()*, set command runs after *execute*.
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
