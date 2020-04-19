@@ -25,6 +25,9 @@ shelib_copysrc(){
 
 
 envinit(){
+  command -v grep > /dev/null || {
+    echo grep not found on your system \(required\); exit 1; 
+  }
   : ${SHELIB_ROOT:=$HOME/.shelib}
   : ${SHELIB:=$SHELIB_ROOT/lib}
   : ${SHELIB_EXEC:=$SHELIB_ROOT/bin}
