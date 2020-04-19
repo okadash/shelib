@@ -4,9 +4,9 @@ load test_helper
 
 setup(){
   DUMMYFUNC_PATH=$PWD/test/bundle/cookedfuncdummy
-  PATH=`dirname $DUMMYFUNC_PATH`:$PWD/bin:$PATH
-  echo 'cookedfuncdummy(){ test $# -ne 0 && setexec return 0 || return 1;}' > $DUMMYFUNC_PATH
-  noncookedfuncdummy(){ test $# -eq 0 && setexec echo 0 || return 1;}
+  PATH=$PWD/test/bundle:$PWD/bin:$PATH
+  echo 'cookedfuncdummy(){ test $# -ne 0 && setexec exit 0 || exit 1;}' > $DUMMYFUNC_PATH
+  noncookedfuncdummy(){ test $# -eq 0 && setexec return 0 || return 1;}
   chmod +x $DUMMYFUNC_PATH
   set_loadenv(){ dummyenv=dummy; }
   set_loadmod(){ dummymod(){ :;} ; }
