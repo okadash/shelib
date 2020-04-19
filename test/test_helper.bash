@@ -23,3 +23,13 @@ setstub_parsers(){
 setstub_tester(){
   test $opt = this && test $cmd = that && $arg = them && return 0 || return 1
 }
+
+valid(){
+  test "$status" -eq 0 || return 1
+}
+visiblemsg(){
+  test ! -z "$output" && return 0 || return 1
+}
+nomsg(){
+  test -z "$output" || return 1
+}
