@@ -2,7 +2,7 @@
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. bash, dash and their sh modes are officially supported and ksh is minor supported. Other shells are not tested but welcome to try to run it.
 
 # FEATURES
-* shelib has *builtin functions* and initiator script *cook* .  Any user can sideload all shelib builtin function with cooking your shell function like this:
+shelib has *builtin functions* and initiator script *cook* .  Any user can sideload all shelib builtin function with cooking your shell function like this:
 ```
 #!/bin/sh
 
@@ -12,7 +12,7 @@ yourfunction(){ something_here ; }
 
 cook yourfunction $@
 ```
-* That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function.
+That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function.
 
 # INSTALL
 
@@ -40,7 +40,7 @@ These functions are reserved inside *cook*. If exist, they are invoked at one ti
 * loadmod: good to load external shell scripts or shell functions
 
 ## callstack component
-These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. (invoked at one time without *shiftstack()*)
+These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
 * parsecmds: subcommand parser, good to describe *if* or *case* syntax for your subcommand definition
 * parseopts: option parser
 * parseargs: argument parser
@@ -48,7 +48,7 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
-* Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *set_exec*, *showhelp*, *tabfix* and *chk*
+* Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *setexec*, *showhelp*, *tabfix* and *chk*
 
 # TODO
 * add comments for *require()* conditions
