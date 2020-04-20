@@ -8,6 +8,6 @@ addons:
 install: 
   - curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
   - tar xzf bats.tgz
-before_script:
-  - test ${TRAVIS_OS_NAME:?invalid env} = osx && ln -sf `gnu-sed` /usr/bin/sed
-script: ./run_tests.sh --travis
+script: 
+  - if [ $TRAVIS_OS_NAME = osx ] ; then sudo ln -sf `gnu-sed` /usr/bin/sed; fi
+  - ./run_tests.sh --travis
