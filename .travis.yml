@@ -1,8 +1,13 @@
 language: sh
 os:
-- linux
-- osx
+  - linux
+  - osx
+addons:
+  homebrew:
+    packages: gnu-sed
 install: 
-- curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
-- tar xzf bats.tgz
+  - curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
+  - tar xzf bats.tgz
+before_script:
+  - test ${TRAVIS_OS_NAME:?invalid env} = osx && ln -sf `gnu-sed` /usr/bin/sed
 script: ./run_tests.sh --travis
