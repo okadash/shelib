@@ -1,0 +1,10 @@
+image: Ubuntu
+
+install:
+  - curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
+  - tar xzf bats.tgz
+
+test_script:
+  - ./run_tests.sh --appveyor
+
+build: off
