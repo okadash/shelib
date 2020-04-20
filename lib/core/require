@@ -3,11 +3,17 @@
 require(){
   chk -e $1
   for i in $@; do 
-    if echo $1 | grep / > /dev/null ; then
-      if test -d ${SHELIB_DIR:?SHELIB_DIR not defined}; then
+    setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/`echo $i | tr -d @`
+    if echo $1 | grep -E "@[^/]+/" > /dev/null ; then
+      if test -d ${SHELIB_DIR}; then
         #shelib module loading
-        . $SHELIB_DIR/$1 || return 1
+        test -f $SHELIB_DIR/`echo $1 | tr -d @` || return 1
+        . $setdir_loaded || return 1
       fi
+    elif echo $1 | grep -E "^@" > /dev/null ; then
+      test -d "$setdir_loaded" \
+        && for j in $setdir_loaded/* ; do . $j ; done \
+	|| return 1
     else
       #simple check of executable
       sanitize $i; chk -x $i; 

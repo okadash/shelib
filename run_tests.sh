@@ -7,7 +7,7 @@ test -d bats-core-1.1.0/bin && PATH=$PWD/bats-core-1.1.0/bin:$PATH
 test "$1" = "--travis" && for i in test/*.bats; do 
   test $i = test/cook.bats \
     || test $i = test/showhelp.bats \
-    || test $i = test/chk.bats \
+    || test $i = test/require.bats \
     || bats $i; done
 
 # test for localhost
