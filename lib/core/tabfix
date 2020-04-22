@@ -1,19 +1,36 @@
 #!/bin/sh
 # rearrange document from stream to add/delete tab
 tabfix(){
- sed -r \
-   -e s/\^\ \+/\ \ /g \
-   -e s/\#\#/\\\t/g \
-   -e "s/^[^\(]+\)/&DEL/g" \
-   -e "s/\)DEL//g" \
-   -e "s/\#[[:punct:][:alnum:]]+/DEL&DEL/g" \
-   -e "s/DEL\#?//g" \
-   -e "s/DEL *\t*/\t/g" \
-   -e "s/\|[[:alnum:]]+//g" \
-   -e "s/\tBREAK_OPT/\t/g" \
-   -e "s/^[^\t]{22}[^[:space:]]*\]?/&TABDEL/" \
-   -e "s/[[:space:]]*TABDEL[[:space:]]+/\t/g" \
-   -e "s/^[^\t]{1,10}\t/&TABADD/" \
-   -e "s/TABADD/\t/g" \
-   -e "s/\t{4}/\t\t\t/"
+  sed -r \
+    -e s/\^\ \+/\ \ /g \
+    -e s/\#\#/\\\t/g \
+    -e "s/^[^\(]+\)/&DEL/g" \
+    -e "s/\)DEL//g" \
+    -e "s/\#[[:punct:][:alnum:]]+/DEL&DEL/g" \
+    -e "s/DEL\#?//g" \
+    -e "s/DEL *\t*//g" \
+    -e "s/\|[[:alnum:]]+//g" \
+    -e "s/\tBREAK_OPT//g" \
+    -e "s/\ BREAK_OPT//g" \
+    -e "s/\t{4}/\t\t\t/g" \
+    -e "s/\t{4}/\t\t\t/g" \
+    -e "s/\t{4}/\t\t\t/g" \
+    -e "s/^[^\t]{3,8}\t/&TABADD/g" \
+    -e "s/\tTABADD/\t\t/g" \
+    -e "s/^[^\t]{8,15}\t/&TABADD/g" \
+    -e "s/\tTABADD/\t\t/g" \
+    -e "s/^[^\t]{24}( |[[:graph:][:punct:]])*\t{2}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{24}( |[[:graph:][:punct:]])*\t{2}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{16,23}\t{2}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{16,23}\t{2}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{16,23}\t{2}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{8,15}*\t{3}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" \
+    -e "s/^[^\t]{8,15}*\t{3}/&TABDEL/g" \
+    -e "s/\tTABDEL//g" 
 }
