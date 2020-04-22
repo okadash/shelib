@@ -53,7 +53,15 @@ showhelp(){
   }
 
   show_usage(){
-    echo usage: $this [`list_help_short`]
+    chk -e $1
+    case $1 in
+      SHELIB_OPTIONS) setvar usage_type usage ;;
+      SHELIB_SUBCOMMANDS) setvar usage_type subcommand ;;
+      *) return 0 ;;
+    esac
+    echo ${usage_type}
+    echo \ \ $this [`list_help_short`]
+    echo
   }
   show_help_header(){
     echo ${this}${version:+-$version} 
@@ -62,8 +70,7 @@ showhelp(){
   show_help_header
 
   for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
-    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && show_usage ; done
-  echo
+    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && show_usage $SHELIB_HELP_HEADER_CLASS ; done
   test "$1" = "--short" || for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
     SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && list_help_detail ; done
 }
