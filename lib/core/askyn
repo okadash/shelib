@@ -5,8 +5,8 @@
 askyn(){
   while :; do
     printf "$* [y/n] "
-    read resp;
-    case $resp in
+    read shelib_askyn_resp;
+    case $shelib_askyn_resp in
       y) exit 0; ;;
       n) exit 1; ;;
       *) echo Speifiy y or n.; break; ;;

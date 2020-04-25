@@ -5,12 +5,12 @@
 showhelp(){
   # list subcommand description
   list_help_short(){
-    for k in \
+    for shelib_k in \
       '\*' \
       "-vE ^.+(\*|${SHELIB_HELP_MISC:+$SHELIB_HELP_MISC|}BREAK_OPT).*$" \
       "-E ^[^\\\*]+BREAK_OPT" ; do 
         list_help_core \
-          | grep $k \
+          | grep $shelib_k \
           | sed -r -e "s/(\)|\|).*//g" -e s/\#\#\.\+//g \
           | grep -vE "^[[:blank:]]*$" \
           | tr -d \\\ \
@@ -66,9 +66,9 @@ showhelp(){
   }
 
   show_help_header
-  for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
-    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && show_usage $SHELIB_HELP_HEADER_CLASS; done
+  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
+    SHELIB_HELP_HEADER_CLASS=$shelib_i; chk_helpdoc_exist && show_usage $SHELIB_HELP_HEADER_CLASS; done
   echo;
-  test "$1" = "--short" || for i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
-    SHELIB_HELP_HEADER_CLASS=$i; chk_helpdoc_exist && list_help_detail ; done
+  test "$1" = "--short" || for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
+    SHELIB_HELP_HEADER_CLASS=$shelib_i; chk_helpdoc_exist && list_help_detail ; done
 }
