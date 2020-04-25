@@ -53,8 +53,8 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 * Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *setexec*, *showhelp*, *tabfix* and *chk*
 
 ## reserved variables
-* shelib uses 4 variables and 3 interators internally: SHELIB_HELP_HEADER, SHELIB_MISC, shelib_setdir_loaded, shelib_askyn_resp, shelib_i, shelib_k and shelib_j. These variables are not recommended to be declared in your scripts.
-* *tabfix()* uses 4 description for replacement: SHELIB_CHARDEL, SHELIB_TABADD, SHELIB_TABDEL and BREAK_OPT. These descriptions are not recoomended to be used in your scripts.
+* shelib uses 4 variables and 3 interators internally: SHELIB_HELP_HEADER, SHELIB_MISC, shelib_setdir_loaded, shelib_askyn_resp, shelib_i, shelib_k and shelib_j. You are not recommended to declare these variables in your scripts.
+* *tabfix()* uses 4 description for replacement: SHELIB_CHARDEL, SHELIB_TABADD, SHELIB_TABDEL and BREAK_OPT. You are not recoomended to use these descriptions in your scripts.
 
 # TODO
 * make usage documentation
