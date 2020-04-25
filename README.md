@@ -58,6 +58,4 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 * Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *setexec*, *showhelp*, *tabfix* and *chk*
 
 # TODO
-* add comments for *require()* conditions
 * make usage documentation
-* Too many...

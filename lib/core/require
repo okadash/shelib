@@ -4,16 +4,19 @@ require(){
   chk -e $1
   for i in $@; do 
     setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/`echo $i | tr -d @`
+    # @pkgname/module description: load shelib module from SHELIB_DIR
     if echo $1 | grep -E "@[^/]+/" > /dev/null ; then
       if test -d ${SHELIB_DIR}; then
         #shelib module loading
         test -f $SHELIB_DIR/`echo $1 | tr -d @` || return 1
         . $setdir_loaded || return 1
       fi
+    # [^@] description: load shellscripts
     elif echo $1 | grep -E "^@" > /dev/null ; then
       test -d "$setdir_loaded" \
         && for j in $setdir_loaded/* ; do . $j ; done \
 	|| return 1
+    # generic requirement check: check executable exists in PATH or not
     else
       #simple check of executable
       sanitize $i; chk -x $i; 
