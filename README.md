@@ -1,6 +1,4 @@
-# SHELIB
-[![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib)
-[![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
+**@shelib/core** the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
 # ABOUT
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. bash, dash and their sh modes are officially supported and ksh is minor supported. Other shells are not tested but welcome to try to run it.
@@ -38,12 +36,12 @@ shelib is designed to reduce loop declarations, and to unify argument parsing me
 If no *shiftstack()* runs, all parser and *execute()* simply invoked, and exit.
 All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
 
-## shelib global component
+## shelib global components
 These functions are reserved inside *cook*. If exist, they are invoked at one time for the shelib function
 * loadenv: good to declare environmental variables for shelib funcitons 
 * loadmod: good to load external shell scripts or shell functions
 
-## callstack component
+## callstack components
 These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
 * parsecmds: subcommand parser, good to describe *if* or *case* syntax for your subcommand definition
 * parseopts: option parser
@@ -55,7 +53,7 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 * Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *setexec*, *showhelp*, *tabfix* and *chk*
 
 ## reserved variables
-* shelib uses 13 variables and 3 interators internally: SHELIB_HELP_HEADER, SHELIB_MISC, shelib_setdir_loaded, shelib_askyn_resp, shelib_i, shelib_k and shelib_j. These variables are not recommended to be declared in your scripts.
+* shelib uses 4 variables and 3 interators internally: SHELIB_HELP_HEADER, SHELIB_MISC, shelib_setdir_loaded, shelib_askyn_resp, shelib_i, shelib_k and shelib_j. These variables are not recommended to be declared in your scripts.
 * *tabfix()* uses 4 description for replacement: SHELIB_CHARDEL, SHELIB_TABADD, SHELIB_TABDEL and BREAK_OPT. These descriptions are not recoomended to be used in your scripts.
 
 # TODO
