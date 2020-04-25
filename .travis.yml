@@ -8,6 +8,7 @@ addons:
 install: 
   - curl -sL https://github.com/bats-core/bats-core/archive/v1.1.0.tar.gz > bats.tgz
   - tar xzf bats.tgz
+before_script:
+  - test "$TRAVIS_OS_NAME" = osx && export PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin/sed:$PATH"
 script: 
-  - if [ $TRAVIS_OS_NAME = osx ] ; then sudo ln -sf "$(brew --prefix)/opt/gnu-sed/libexec/gnubin/sed" /usr/bin/sed; fi
   - ./run_tests.sh --travis
