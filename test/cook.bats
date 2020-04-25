@@ -3,9 +3,10 @@
 load test_helper
 
 setup(){
-  DUMMYFUNC_PATH=~/.shelib/bin/cookedfuncdummy
-  echo 'cookedfuncdummy(){ test $# -ne 0 && setexec return 0 || return 1;}' > $DUMMYFUNC_PATH
-  noncookedfuncdummy(){ test $# -eq 0 && setexec echo 0 || return 1;}
+  DUMMYFUNC_PATH=$PWD/test/bundle/cookedfuncdummy
+  PATH=$PWD/test/bundle:$PWD/bin:$PATH
+  echo 'cookedfuncdummy(){ test $# -ne 0 && setexec exit 0 || exit 1;}' > $DUMMYFUNC_PATH
+  noncookedfuncdummy(){ test $# -eq 0 && setexec return 0 || return 1;}
   chmod +x $DUMMYFUNC_PATH
   set_loadenv(){ dummyenv=dummy; }
   set_loadmod(){ dummymod(){ :;} ; }
@@ -20,19 +21,19 @@ teardown(){
 @test "正常系: PATHに存在するshelib関数" {
   setstub_parsers;
   . $DUMMYFUNC_PATH
-  run ./bin/cook cookedfuncdummy a b c
+  run cook cookedfuncdummy a b c
   test "$status" -eq 0
 }
 
 @test "正常系: PATHに存在しない関数のshelib stack を呼出" {
   setstub_parsers;
-  run ./bin/cook -f noncookedfuncdummy a b c
+  run cook -f noncookedfuncdummy a b c
   test "$status" -eq 2
 }
 
 @test "異常系: 引数未指定" {
   setstub_parsers;
-  run ./bin/cook
+  run cook
   test "$status" -eq 1
 }
 

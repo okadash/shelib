@@ -2,12 +2,21 @@
 # check external executables to resolve dependency
 require(){
   chk -e $1
-  for i in $@; do 
-    if echo $1 | grep / > /dev/null ; then
-      if test -d ${SHELIB_DIR:?SHELIB_DIR not defined}; then
+  for shelib_i in $@; do 
+    shelib_setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/`echo $shelib_i | tr -d @`
+    # @pkgname/module description: load shelib module from SHELIB_DIR
+    if echo $1 | grep -E "@[^/]+/" > /dev/null ; then
+      if test -d ${SHELIB_DIR}; then
         #shelib module loading
-        . $SHELIB_DIR/$1 || return 1
+        test -f $SHELIB_DIR/`echo $1 | tr -d @` || return 1
+        . $shelib_setdir_loaded || return 1
       fi
+    # [^@] description: load shellscripts
+    elif echo $1 | grep -E "^@" > /dev/null ; then
+      test -d "$shelib_setdir_loaded" \
+        && for shelib_j in $shelib_setdir_loaded/* ; do . $j ; done \
+	|| return 1
+    # generic requirement check: check executable exists in PATH or not
     else
       #simple check of executable
       sanitize $i; chk -x $i; 
