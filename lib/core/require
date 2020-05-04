@@ -3,24 +3,20 @@
 require(){
   chk -e $1
   for shelib_i in $@; do 
-    shelib_setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/`echo $shelib_i | tr -d @`
-    # @pkgname/module description: load shelib module from SHELIB_DIR
-    if echo $1 | grep -E "@[^/]+/" > /dev/null ; then
-      if test -d ${SHELIB_DIR}; then
-        #shelib module loading
-        test -f $SHELIB_DIR/`echo $1 | tr -d @` || return 1
-        . $shelib_setdir_loaded || return 1
-      fi
-    # [^@] description: load shellscripts
-    elif echo $1 | grep -E "^@" > /dev/null ; then
-      test -d "$shelib_setdir_loaded" \
-        && for shelib_j in $shelib_setdir_loaded/* ; do . $j ; done \
-	|| return 1
-    # generic requirement check: check executable exists in PATH or not
-    else
-      #simple check of executable
-      sanitize $i; chk -x $i; 
-    fi
+    shelib_setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/${shelib_i##@}
+    case $1 in 
+      @*/*) ## @pkgname/module syntax: load shelib module from SHELIB_DIR
+        test -f ${SHELIB_DIR}/${1:##@} || throw "$1 not exist in shelibdir"
+        . $shelib_setdir_loaded || throw "loading failure" ;;
+      @*) ## [^@] syntax: load shellscripts from shpkg in shelib dir
+        test -d "$shelib_setdir_loaded" \
+          && for shelib_j in $shelib_setdir_loaded/* ; do . $shelib_j ; done \
+          || throw shpkg $1 not found;;
+      /*) ## /path/to/script syntax: 
+        test -f $1 && . $1 || throw "failed to load $1" ;;
+      *) ## generic requirement check: check executable exists in PATH or not
+        sanitize $shelib_i; chk -x $shelib_i ;;
+    esac
   done
   return 0
 }

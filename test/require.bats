@@ -4,7 +4,7 @@ load test_helper
 
 setup(){
   loadlib require chk throw sanitize
-  SHELIB_DIR=$HOME/.shelib/lib
+  SHELIB_DIR=$PWD/lib
   export SHELIB_DIR
 }
 
@@ -27,12 +27,12 @@ setup(){
 
 @test "異常系: SHELIB_DIR not defined" {
   SHELIB_DIR=
-  run require core/chk
+  run require @core/chk
   test "$status" -eq 1
 }
 
 @test "異常系: try to load core/notexist" {
-  run require core/notexist
+  run require @core/notexist
   test "$status" -eq 1
 }
 
