@@ -4,7 +4,7 @@
 # description init for the call tree of shelib functions
 cook(){
   # shelib global variables
-  SHELIB_DIR=$HOME/.shelib/lib
+  SHELIB_DIR=$HOME/.shef/lib
   for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
 
   case $1 in 
@@ -38,6 +38,6 @@ cook(){
   ## remove function name itself
   shift;
   ## call execution stack 
-  callstack $@
+  test "$uncook" != 1 && callstack $@
 }
 cook $@

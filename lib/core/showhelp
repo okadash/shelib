@@ -4,50 +4,59 @@
 
 showhelp(){
   # list subcommand description
-  list_help_short(){
+  showhelp_short(){
     for shelib_k in \
       '\*' \
-      "-vE ^.+(\*|${SHELIB_HELP_MISC:+$SHELIB_HELP_MISC|}BREAK_OPT).*$" \
+      "-vE ^.+(\*|${SHELIB_HELP_MISC:-MISC|}BREAK_OPT).*$" \
       "-E ^[^\\\*]+BREAK_OPT" ; do 
-        list_help_core \
+        showhelp_core ${1:?showhelp_short: arguemnt_needed} \
           | grep $shelib_k \
           | sed -r -e "s/(\)|\|).*//g" -e s/\#\#\.\+//g \
           | grep -vE "^[[:blank:]]*$" \
           | tr -d \\\ \
           | tr \\\n \\\| \
           | sed -r -e s/\\\|\ \*\$// \
-          | sed -r -e s/\\\|-//g
+          | sed -r -e s/\\\|-//g \
+	  || return 1
     done | sed -r \
       -e "s/[[:alnum:]\*]-/&[/g" \
       -e "s/-\[/] [-/g" 
   }
-  list_help_core(){
-    : ${SHELIB_HELP_MISC:="MISC"} > /dev/null
-    grep -EA100 \^\ \*\#$SHELIB_HELP_HEADER_CLASS `which $this` \
-      | grep -EB100 \^\ \*\#$SHELIB_HELP_HEADER_CLASS \
+  set_help_header(){
+    : ${1:?shelib help header must be set};
+    help_header=${1:-GOCHAS_SHELIB_HELPME_HOGE};
+  }
+  get_help_header(){ echo ${help_header:?shelib help_header not set!}; }
+
+  showhelp_core(){
+    set_help_header $1; get_help_header > /dev/null;
+    grep -EA100 \^\ \*\#"`get_help_header`" `which $this` \
+      | grep -EB100 \^\ \*\#"`get_help_header`" \
       | grep -A100 case\ \\\$1 \
       | grep -B100 esac\ \*\$ \
-      | grep -vE case\|esac \
-      | grep -E "([[:blank:]]*[[:alnum:]]+\)|[[:blank:]]*##.+)" 
+      | grep -vE "[[:space:]^](case|esac)[[:space:]$]" \
+      | grep -E "([[:blank:]]*[[:alnum:]]+\)|[[:blank:]]*##.+)" \
+      || return 1
   }
 
   # generate help description from comment lines
-  list_help_detail(){
+  showhelp_detail(){
     ## show help header
-    echo $SHELIB_HELP_HEADER_CLASS | sed -r -e s/SHELIB_//g -e s/\$/:/ | tr A-Z a-z | tr -d \\\n
+    set_help_header $1
+    echo $1 | sed -r -e s/SHELIB_//g -e s/\$/:/ | tr A-Z a-z | tr -d \\\n
     ## show help body
-    list_help_core \
+    showhelp_core ${1:?showhelp_detail: argument needed} \
       | sed -r -e s/\^/SOL/g \
                -e "s/SOL[[:blank:]]*##/\t##/g" \
       | tr -d \\\n \
       | sed -e s/SOL/\\\n/g \
       | tabfix \
-      | grep -v ${SHELIB_HELP_MISC:-GOCHAS_SHELIB_HELPME_HOGE}
+      | grep -v ${SHELIB_HELP_MISC:-MISC} || return 1
       echo;
   }
 
   chk_helpdoc_exist(){
-    if list_help_core > /dev/null 2> /dev/null ; then return 0;
+    if showhelp_core ${1:?chk_helpdoc_exist: argument needed} > /dev/null 2> /dev/null ; then return 0;
     else return 1; 
     fi
   }
@@ -58,17 +67,23 @@ showhelp(){
       SHELIB_OPTIONS|SHELIB_SUBCOMMANDS) : ;;
       *) return 0 ;;
     esac
-    echo \ \ $this [`list_help_short`]
+    echo \ \ $this [`showhelp_short $1`]
   }
-  show_help_header(){
+  show_version(){
     echo ${this}${version:+-$version} 
-    echo usage:; 
+  }
+  unset_internal(){
+    unset show_usage show_version chk_helpdoc_exist \
+      showhelp_{core,detail,short} {set,get}_help_header unset_internal
   }
 
-  show_help_header
-  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
-    SHELIB_HELP_HEADER_CLASS=$shelib_i; chk_helpdoc_exist && show_usage $SHELIB_HELP_HEADER_CLASS; done
+  show_version
+  test "$1" = "--short" || echo usage:; 
+  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do 
+    chk_helpdoc_exist $shelib_i && show_usage $shelib_i; done
   echo;
-  test "$1" = "--short" || for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS SHELIB_ARGS; do 
-    SHELIB_HELP_HEADER_CLASS=$shelib_i; chk_helpdoc_exist && list_help_detail ; done
+  test "$1" = "--short" || \
+    for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do 
+    chk_helpdoc_exist $shelib_i && showhelp_detail $shelib_i ; done
+  unset_internal
 }

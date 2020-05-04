@@ -1,7 +1,7 @@
-**@shelib/core** the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
+**@shelib/core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
 # ABOUT
-Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. bash, dash and their sh modes are officially supported and ksh is minor supported. Other shells are not tested but welcome to try to run it.
+Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
 # FEATURES
 shelib has *builtin functions* and initiator script *cook* .  Any user can sideload all shelib builtin function with cooking your shell function like this:
@@ -50,11 +50,32 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
-* Now we support 12 shelib builtins: *callstack*, *shiftstack*, *throw*, *silent*, *askyn*, *sanitize*, *setvar*, *require*, *setexec*, *showhelp*, *tabfix* and *chk*
+* Now we support 12 shelib builtins: 
+ - *callstack*
+ - *shiftstack*
+ - *throw*
+ - *silent*
+ - *askyn*
+ - *sanitize*
+ - *setvar*
+ - *require*
+ - *setexec*
+ - *showhelp*
+ - *tabfix*
+ - *chk*
 
 ## reserved variables
-* shelib uses 4 variables and 3 interators internally: SHELIB_HELP_HEADER, SHELIB_MISC, shelib_setdir_loaded, shelib_askyn_resp, shelib_i, shelib_k and shelib_j. You are not recommended to declare these variables in your scripts.
-* *tabfix()* uses 4 description for replacement: SHELIB_CHARDEL, SHELIB_TABADD, SHELIB_TABDEL and BREAK_OPT. You are not recoomended to use these descriptions in your scripts.
+* shelib uses 5 variables and 3 iterators internally (read-only use recommended to upper case variables, non-use recommended to others):
+ - SHELIB_DIR
+ - shelib_setdir_loaded
+ - shelib_askyn_resp
+ - shelib_i
+ - shelib_k
+ - shelib_j
+* *tabfix()* uses 3 internal description for word replacement. They are not recommended to be used in your shelib functions:
+ - SHELIB_CHARDEL
+ - SHELIB_TABADD
+ - SHELIB_TABDEL
 
 # TODO
 * make usage documentation
