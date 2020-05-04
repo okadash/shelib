@@ -31,7 +31,7 @@ parseopts(){
     ##specify dummy dir
     DOC_DIR="`parse_dir $2`"; rmarg 2 $@ ;;
 
-    -h|--help) #[--detail|--all] ##BREAK_OPT
+    -h|--help) #[--short] ##BREAK_OPT
     ##show this help
     setexec "showhelp $2" ;;
 

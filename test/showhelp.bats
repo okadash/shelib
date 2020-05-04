@@ -33,7 +33,7 @@ setup(){
 @test "check for short option (--short)" {
   run :;
   # check for help header (shown)
-  if dum2 -h --short | grep -iE \^Usage ; then :; else throw invalid header for shelibdoc ; fi
+  if dum2 -h --short | grep -iE \^dum2 ; then :; else throw invalid header for shelibdoc ; fi
   # check for help body (not shown)
   if dum2 -h --short | grep -E "^[[:space:]]+(\[?(-+[[:alnum:]\*]+\|?)+\]? ?)+\t+[[:alnum:][:punct:][[:space:]]*"; then 
     throw invalid help format for --short option
