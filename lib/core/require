@@ -6,7 +6,7 @@ require(){
     shelib_setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/${shelib_i##@}
     case $1 in 
       @*/*) ## @pkgname/module syntax: load shelib module from SHELIB_DIR
-        test -f ${SHELIB_DIR}/${1:##@} || throw "$1 not exist in shelibdir"
+        test -f ${shelib_setdir_loaded} || throw "$1 not exist in shelibdir"
         . $shelib_setdir_loaded || throw "loading failure" ;;
       @*) ## [^@] syntax: load shellscripts from shpkg in shelib dir
         test -d "$shelib_setdir_loaded" \

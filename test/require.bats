@@ -8,21 +8,21 @@ setup(){
   export SHELIB_DIR
 }
 
-@test "正常系: load shelib module core/chk" {
-  run require chk
+@test "正常系: load shelib module @core/chk" {
+  run require @core/chk
   test "$status" -eq 0
+}
+
+@test "正常系: load all shelib module from @shpkg" {
+  run require @core
+  require @core
+  test "$status" -eq 0
+  type callstack
 }
 
 @test "正常系: executable exist in PATH" {
   run require grep
   test "$status" -eq 0
-}
-
-@test "正常系: load a shelib module" {
-  run require @core
-  require @core
-  test "$status" -eq 0
-  type callstack
 }
 
 @test "異常系: SHELIB_DIR not defined" {
