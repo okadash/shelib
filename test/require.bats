@@ -20,6 +20,13 @@ setup(){
   type callstack
 }
 
+@test "正常系: /path/to/script loading" {
+  run require $PWD/test/bundle/dum2func
+  require $PWD/test/bundle/dum2func
+  test "$status" -eq 0
+  type dum2func
+}
+
 @test "正常系: executable exist in PATH" {
   run require grep
   test "$status" -eq 0
