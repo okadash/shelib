@@ -4,6 +4,7 @@ load test_helper
 
 setup(){
   loadlib setvar sanitize throw
+  this_id=a7f83e628a
 }
 
 @test "VALID: assignment succeeded" {
@@ -28,5 +29,11 @@ setup(){
 
 @test "INVALID: argument sanitized" {
   run setvar hoge "; sh -c \"exec shellcode\";"
+  test "$status" -eq 1
+}
+
+@test "INVALID: callstack identifier not assigned" {
+  this_id=
+  run setvar hoge fuga
   test "$status" -eq 1
 }
