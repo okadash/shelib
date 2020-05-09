@@ -1,0 +1,6 @@
+#getvar 
+# variable getter
+getvar(){
+  chk -v $1
+  echo $1
+}
