@@ -45,13 +45,13 @@ teardown(){
 
 @test "INVALID: argument is NOT exist in PATH" {
   setstub_parsers;
-  run ./bin/cook noncookedfuncdummy a b c
-  test "$status" -eq 1
+  run ./bin/cook noncookedfuncdummy 
+  test "$status" -eq 2
 }
 
 @test "INVALID: argument is NOT exist" {
   setstub_parsers;
-  run ./bin/cook notexistfuncdummy a b c
-  test "$status" -eq 1
+  run ./bin/cook notexistfuncdummy
+  test "$status" -eq 2
 }
 

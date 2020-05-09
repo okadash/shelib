@@ -14,6 +14,9 @@ cook(){
     ##invoke shelib function with verbose mode
     -v)
       set -o verbose; shift;;
+    ##unlock cook command for additional cook invokation
+    -U)
+      shelib_uncook=0; shift;;
     ##invoke shelib function with xtrace mode
     -x)
       set -o xtrace; shift;;
@@ -21,26 +24,32 @@ cook(){
       command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
   esac
 
-  # callstack name $this
-  this=$1
-  # callstack identifier $this_id
-  this_id="$(gen_seed 10)"
-  readonly this_id
 
-  chk -e $this_id
-  chk -e $1
-  # if function $1 not found, try to load it from the executable in PATH
-  type $1 | grep -v / > /dev/null && return 0 || . `command -v $1`;
-  $@ || throw shelf broken;
-  ## todo: load default.env as an external file
-  type loadenv > /dev/null 2> /dev/null && loadenv
-  ## todo: run module.init if exist 
-  type loadmod > /dev/null 2> /dev/null && loadmod
-  ## remove function name itself
-  shift;
-  ## call execution stack and lock cook command for additional script loading
+  ## call shelib execution stack 
   if test ${shelib_uncook:=0} != 1; then 
-    export shelib_uncook=1; callstack $@;
+
+    # set callstack name $this
+    this=$1
+    # set readonly callstack identifier $this_id
+    this_id="$(genseed 10)"
+    readonly this_id
+
+    sanitize $this_id
+    chk -e $1
+
+    #lock cook command for stopping additional script loading
+    export shelib_uncook=1; 
+
+    # if function $1 not found, try to load it from the executable in PATH
+    type $1 | grep -v / > /dev/null && return 0 || . `command -v $1`;
+    $@ || throw shelf broken;
+    ## todo: load default.env as an external file
+    type loadenv > /dev/null 2> /dev/null && loadenv
+    ## todo: run module.init if exist 
+    type loadmod > /dev/null 2> /dev/null && loadmod
+    ## remove function name itself
+    shift;
+    callstack $@;
   fi
 }
 cook $@
