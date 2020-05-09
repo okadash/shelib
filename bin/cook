@@ -5,7 +5,7 @@
 cook(){
   # shelib global variables
   SHELIB_DIR=$HOME/.shef/lib
-  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
+  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do test -f $i && . $i; done 
 
   case $1 in 
     ##show shelib version
@@ -17,9 +17,6 @@ cook(){
     ##invoke shelib function with xtrace mode
     -x)
       set -o xtrace; shift;;
-    ##cook argument function without PATH checking
-    -f|--func)
-      shift;;
     *) # check existence of an executable $1 in PATH
       command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
   esac
@@ -29,7 +26,7 @@ cook(){
 
   chk -e $1
   # if function $1 not found, try to load it from the executable in PATH
-  type $1 | grep -qE "$1[[:blank:]]*\(\)" && return 0 || . `command -v $1`;
+  type $1 | grep -v / > /dev/null && return 0 || . `command -v $1`;
   $@ || throw shelf broken;
   ## todo: load default.env as an external file
   type loadenv > /dev/null 2> /dev/null && loadenv
@@ -37,7 +34,9 @@ cook(){
   type loadmod > /dev/null 2> /dev/null && loadmod
   ## remove function name itself
   shift;
-  ## call execution stack 
-  test "$uncook" != 1 && callstack $@
+  ## call execution stack and lock cook command for additional script loading
+  if test ${shelib_uncook:=0} != 1; then 
+    export shelib_uncook=1; callstack $@;
+  fi
 }
 cook $@

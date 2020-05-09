@@ -73,8 +73,17 @@ showhelp(){
     echo ${this}${version:+-$version} 
   }
   unset_internal(){
-    unset show_usage show_version chk_helpdoc_exist \
-      showhelp_{core,detail,short} {set,get}_help_header unset_internal
+    for shelib_k in \
+      show_usage \
+      show_version \
+      chk_helpdoc_exist \
+      showhelp_core \
+      showhelp_detail \
+      showhelp_short \
+      set_help_header unset_internal\
+      get_help_header unset_internal\
+      ; do
+      unset $shelib_k; done
   }
 
   show_version
