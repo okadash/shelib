@@ -3,33 +3,36 @@
 load test_helper
 
 setup(){
-  DUMMYFUNC_PATH=$PWD/test/bundle/cookedcommanddummy
+  DUMMYFUNC_PATH=$PWD/test/bundle/bin
   DUMMYOUT_DIR=$PWD/test/.tmp
-  PATH=$PWD/test/bundle:$PWD/bin:$PATH
+  PATH=$DUMMYFUNC_PATH:$PWD/bin:$PATH
 
-  echo "cookedcommanddummy(){ execute(){ echo 1 | tee -a $DUMMYOUT_DIR/out; }; argcheck(){ test \$# -ne 0 || exit 1;}; argcheck \$@; }" > $DUMMYFUNC_PATH
+  mkdir -vp $DUMMYFUNC_PATH
+
+  echo "dummycom(){ execute(){ echo 1 | tee -a $DUMMYOUT_DIR/out; }; argcheck(){ test \$# -ne 0 || exit 1;}; argcheck \$@; }" > $DUMMYFUNC_PATH/dummycom
+  echo "name_tester(){ execute(){ echo $this; }; }" > $DUMMYFUNC_PATH/name_tester
+  echo "id_tester(){ execute(){ echo $this_id; }; }" > $DUMMYFUNC_PATH/id_tester
   noncookedfuncdummy(){ test $# -eq 0 && setexec return 0 || return 1;}
-  chmod +x $DUMMYFUNC_PATH
+  chmod +x $DUMMYFUNC_PATH/*
 
   mkdir -vp $DUMMYOUT_DIR
 }
 
 teardown(){
-  rm $DUMMYFUNC_PATH
+  rm -rv $DUMMYFUNC_PATH 
   rm -r $DUMMYOUT_DIR
 }
 
 @test "VALID: shelib function is inside a command in PATH" {
   setstub_parsers
-  . $DUMMYFUNC_PATH
-  run cook cookedcommanddummy a b c
+  run cook dummycom a b c
   test "$status" -eq 0
   test -f $DUMMYOUT_DIR/out
 }
 
 @test "VALID: do not call callstack() when shelib_uncook=1" {
   export shelib_uncook=1
-  run cook cookedcommanddummy a b c
+  run cook dummycom a b c
   test "$status" -eq 0
   test ! -f $DUMMYOUT_DIR/out
 }
@@ -51,3 +54,4 @@ teardown(){
   run ./bin/cook notexistfuncdummy a b c
   test "$status" -eq 1
 }
+

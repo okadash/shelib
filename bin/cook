@@ -21,9 +21,13 @@ cook(){
       command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
   esac
 
-  # callstack identifier $this
+  # callstack name $this
   this=$1
+  # callstack identifier $this_id
+  this_id="$(gen_seed 10)"
+  readonly this_id
 
+  chk -e $this_id
   chk -e $1
   # if function $1 not found, try to load it from the executable in PATH
   type $1 | grep -v / > /dev/null && return 0 || . `command -v $1`;
