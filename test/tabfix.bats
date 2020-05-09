@@ -9,16 +9,16 @@ setup(){
   }
 }
 
-@test "success with stdin" {
+@test "VALID: success with stdin" {
   showsample 1 | tabfix
 }
-@test "stdout has space-prepended lines" {
+@test "VALID: stdout has space-prepended lines" {
   showsample 1 | tabfix | grep -E "^[[:space:]]+.+"
 }
-@test "stdout has no space lines with no space included input" {
+@test "VALID: stdout has no space lines with no space included input" {
   showsample 2 | tabfix | grep -E "^[[:space:]]+.+" && return 1 || return 0
 }
-@test "stdout only has spaced lines with space-prepended line input" {
+@test "VALID: stdout only has spaced lines with space-prepended line input" {
   showsample 3 | tabfix | grep -E "^[[:space:]]+.+" 
   showsample 3 | tabfix | grep -vE "^[[:space:]]+.+" && return 1 || return 0
 }

@@ -2,6 +2,6 @@
 #silent
 # make output silent 
 silent(){
-  test -z "$1" && return 1
+  test -z "$1" && throw silent\(\): argument not specified
   $@ > /dev/null 2> /dev/null 
 }

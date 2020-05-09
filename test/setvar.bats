@@ -6,27 +6,27 @@ setup(){
   loadlib setvar sanitize throw
 }
 
-@test "正常系: 代入成功" {
+@test "VALID: assignment succeeded" {
   run setvar hoge neko
   test "$status" -eq 0
 }
 
-@test "正常系: 空文字列の代入" {
+@test "VALID: blank assignment" {
   run setvar hoge ""
   test "$status" -eq 0
 }
 
-@test "異常系: 引数不足" {
+@test "INVALID: too few argument" {
   run setvar hoge 
   test "$status" -eq 1
 }
 
-@test "異常系: 引数過剰" {
+@test "INVALID: too much argument" {
   run setvar hoge fuga neko
   test "$status" -eq 1
 }
 
-@test "異常系: 不正文字の混入" {
+@test "INVALID: argument sanitized" {
   run setvar hoge "; sh -c \"exec shellcode\";"
   test "$status" -eq 1
 }

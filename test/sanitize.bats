@@ -6,47 +6,47 @@ setup(){
   loadlib throw sanitize
 }
 
-@test "正常系 不正なシーケンスなし" {
+@test "VALID: no malicious sequence" {
   run sanitize toxicOxidant.itis
   test "$status" -eq 0
 }
 
-@test "異常系 セミコロン検出" {
+@test "SANITIZED: semi-colon detected" {
   run sanitize echo "echo; exec shellcodesums;"
   test "$status" -eq 1
 }
 
-@test "異常系 double quotes detected" {
+@test "SANITIZED: double quotes detected" {
   run sanitize \"shellcodes\"
   test "$status" -eq 1
 }
 
-@test "異常系 quotes detected" {
+@test "SANITIZED: quotes detected" {
   run sanitize \'shellcodes\'
   test "$status" -eq 1
 }
 
-@test "異常系 bar detected" {
+@test "SANITIZED: bar detected" {
   run sanitize echo shellcodes \| sh
   test "$status" -eq 1
 }
 
-@test "異常系 backquotes detected" {
+@test "SANITIZED: backquotes detected" {
   run sanitize \`echo shellcodes\`
   test "$status" -eq 1
 }
 
-@test "異常系 redirect detected" {
+@test "SANITIZED: redirect detected" {
   run sanitize "echo shellcodes >> criticalscript"
   test "$status" -eq 1
 }
 
-@test "異常系 ampathand detected" {
+@test "SANITIZED: ampathand detected" {
   run sanitize "&"
   test "$status" -eq 1
 }
 
-@test "異常系 dollar detected" {
+@test "SANITIZED: dollar detected" {
   run sanitize "\$TOO_DANGEROUS_VAR"
   test "$status" -eq 1
 }

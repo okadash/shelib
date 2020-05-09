@@ -3,22 +3,22 @@
 load test_helper
 
 setup(){
-  loadlib silent
+  loadlib throw silent
 }
 
-@test "正常系 標準出力しない" {
-  run silent echo いついかなる時も正常終了する関数である
+@test "VALID: suppress stdout" {
+  run silent echo fox dumping a virus
   test "$status" -eq 0
   test -z "$output"
 }
 
-@test "正常系 標準エラー出力しない" {
-  run silent cat .nontesting_compound
+@test "VALID: suppress stderr" {
+  run silent cat .cat_all_over_the_world
   test "$status" -eq 1
   test -z "$output"
 }
 
-@test "異常系 引数が未指定" {
+@test "INVALID: argument not specified" {
   run silent 
   test "$status" -eq 1
 }
