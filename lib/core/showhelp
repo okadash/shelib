@@ -8,7 +8,7 @@ showhelp(){
     for shelib_k in \
       '\*' \
       "-vE ^.+(\*|${SHELIB_HELP_MISC:-MISC|}BREAK_OPT).*$" \
-      "-E ^[^\\\*]+BREAK_OPT" ; do 
+      "-E ^[^\\\*]+BREAK_OPT" ; do
         showhelp_core ${1:?showhelp_inline: arguemnt_needed} \
           | grep $shelib_k \
           | sed -r -e "s/(\)|\|).*//g" -e s/\#\#\.\+//g \
@@ -20,7 +20,7 @@ showhelp(){
 	  || return 1
     done | sed -r \
       -e "s/[[:alnum:]\*]-/&[/g" \
-      -e "s/-\[/] [-/g" 
+      -e "s/-\[/] [-/g"
   }
   set_help_header(){
     : ${1:?shelib help header must be set};
@@ -52,16 +52,15 @@ showhelp(){
       | sed -e s/SOL/\\\n/g \
       | tabfix \
       | grep -v ${SHELIB_HELP_MISC:-MISC} || return 1
-      echo;
   }
 
   chk_helpdoc_exist(){
     if showhelp_core ${1:?chk_helpdoc_exist: argument needed} > /dev/null 2> /dev/null ; then return 0;
-    else return 1; 
+    else return 1;
     fi
   }
 
-  show_usage(){
+  shelib_show_usage(){
     chk -e $1
     case $1 in
       SHELIB_OPTIONS|SHELIB_SUBCOMMANDS) : ;;
@@ -69,20 +68,19 @@ showhelp(){
     esac
     echo \ \ $this [`showhelp_inline $1`]
   }
-  show_manifest(){
-    echo ${this}${SHELIB_MODULE_VERSION:+-$SHELIB_MODULE_VERSION}
-    echo ${SHELIB_MODULE_DESC:+\ \ desc:   $SHELIB_MODULE_DESC}
+  shelib_show_manifest(){
+    echo ${this}${SHELIB_MODULE_VERSION:+-$SHELIB_MODULE_VERSION} ${SHELIB_MODULE_DESC:+\ $SHELIB_MODULE_DESC}
     test ! -z "$SHELIB_MODULE_SHORT_USAGE" \
       && echo \ \ usage: $SHELIB_MODULE_SHORT_USAGE
   }
   show_copyleft(){
-    echo \ \ \(packaged by ${MODULE_AUTHER_NAME} \<${MODULE_AUTHER_EMAIL}\>\)
+    echo by\ \ ${MODULE_AUTHER_NAME} \<${MODULE_AUTHER_EMAIL}\>
   }
 
   unset_internal(){
     for shelib_k in \
-      show_usage \
-      show_manifest \
+      shelib_show_usage \
+      shelib_show_manifest \
       chk_helpdoc_exist \
       showhelp_core \
       showhelp_detail \
@@ -93,14 +91,12 @@ showhelp(){
       unset $shelib_k; done
   }
 
-  show_manifest
-  test "$1" = "--short" || echo usage:; 
-  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do 
-    chk_helpdoc_exist $shelib_i && show_usage $shelib_i; done
-  echo;
+  shelib_show_manifest
+  test "$1" = "--short" || echo usage:;
+  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
+    chk_helpdoc_exist $shelib_i && shelib_show_usage $shelib_i; done
   test "$1" = "--short" || \
-    for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do 
+    for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
       chk_helpdoc_exist $shelib_i && showhelp_detail $shelib_i ; done
-  show_copyleft
   unset_internal
 }

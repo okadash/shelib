@@ -3,8 +3,8 @@
 tabfix(){
   sed -r \
     -e s/\^\ \+/\ \ /g \
-    -e s/\#\#/\\\t/g \
-    -e "s/^[^\(]+\)/&SHELIB_CHARDEL/g" \
+    -e "s/##/\t/g" \
+    -e "s/^([^\(]+\))(.+;;)?/\1SHELIB_CHARDEL/g" \
     -e "s/\)SHELIB_CHARDEL//g" \
     -e "s/\#[[:punct:][:alnum:]]+/SHELIB_CHARDEL&SHELIB_CHARDEL/g" \
     -e "s/SHELIB_CHARDEL\#?//g" \
@@ -32,5 +32,5 @@ tabfix(){
     -e "s/^[^\t]{8,15}*\t{3}/&SHELIB_TABDEL/g" \
     -e "s/\tSHELIB_TABDEL//g" \
     -e "s/^[^\t]{8,15}*\t{3}/&SHELIB_TABDEL/g" \
-    -e "s/\tSHELIB_TABDEL//g" 
+    -e "s/\tSHELIB_TABDEL//g"
 }
