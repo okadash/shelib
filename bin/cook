@@ -5,7 +5,7 @@
 cook(){
   # shelib global variables
   SHELIB_DIR=$HOME/.shef/lib
-  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do test -f $i && test ${i##/} != manifest && . $i; done
+  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do test -f $i && test ${i##*/} != manifest && . $i; done
 
   case $1 in
     ##show shelib version
