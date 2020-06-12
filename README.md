@@ -38,15 +38,15 @@ All shelib function is style-free as like as generic shell functions and any con
 
 ## shelib global components
 These functions are reserved inside *cook*. If exist, they are invoked at one time for the shelib function
-* loadenv: good to declare environmental variables for shelib funcitons
 * loadmod: good to load external shell scripts or shell functions
+* loadenv: good to declare environmental variables for shelib funcitons
 
 ## callstack components
 These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
 * parsecmds: subcommand parser, good to describe *if* or *case* syntax for your subcommand definition
 * parseopts: option parser
 * parseargs: argument parser
-* execute: execution stack. if exist, run it at the last of the callstack. If there are any command insersion by *setexec()*, set command runs after *execute*.
+* execute: execution stack. if exist, run it at the last of the callstack. If there are any command insersion by *setexec()*, command set by *setexec()* runs after *execute*.
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
@@ -67,18 +67,18 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
   - *chk*
 
 ## reserved variables and internal functions
-* shelib uses 5 variables and 3 iterators internally. Not recommended to use these variables in your functions:
+* shelib uses 5 variables and 3 iterators internally. DO NOT use these variables in your functions:
   - SHELIB_DIR
   - shelib_setdir_loaded
   - shelib_askyn_resp
   - shelib_i
   - shelib_k
   - shelib_j
-* *tabfix()* uses 3 internal description for word replacement. Not recommended to use these names in your functions:
+* *tabfix()* uses 3 internal description for word replacement. DO NOT use these names in your functions:
   - SHELIB_CHARDEL
   - SHELIB_TABADD
   - SHELIB_TABDEL
-* showhelp uses 8 internal functions. Not recommended to use/declare these functions in your functions:
+* showhelp uses 8 internal functions. DO NOT use/declare these functions in your functions:
   - shelib_show_usage
   - shelib_show_manifest
   - chk_helpdoc_exist
