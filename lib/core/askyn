@@ -7,8 +7,8 @@ askyn(){
     printf "$* [y/n] "
     read shelib_askyn_resp;
     case $shelib_askyn_resp in
-      y) exit 0; ;;
-      n) exit 1; ;;
+      y) return 0; ;;
+      n) return 1; ;;
       *) echo Speifiy y or n.; break; ;;
     esac
   done

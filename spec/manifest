@@ -1,11 +1,12 @@
 # MANIFEST
 # manifest specification template
 
-SHELIB_MODULE_VERSION=v0.1.0
+SHELIB_MODULE_NAME="Anymod"
+SHELIB_MODULE_VERSION=0.1.0
 SHELIB_MODULE_DESC="Any module for any commands"
 MODULE_AUTHER_NAME="Anyone"
 MODULE_AUTHER_EMAIL="john@example.com"
-MODULE_REPO_BASE="https://github.com/example/example/release/archive"
+MODULE_REPO_BASE="https://github.com/example/example
 
 # COMMAND REQUIREMENT
 # specify required binaries in here
