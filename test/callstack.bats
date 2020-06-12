@@ -11,26 +11,26 @@ setup(){
   }
 }
 
-@test "異常系 no parser and no execute()" {
+@test "INVALID: no parser and no execute()" {
   run callstack
   test "$status" -eq 1
   test ! -z "$output" 
 }
 
-@test "異常系 no execute() without exec_cmd" {
+@test "INVALID: no execute() without exec_cmd" {
   setall_parser
   run callstack
   test "$status" -eq 1
 }
 
-@test "正常系 no parser" {
+@test "VALID: no parser" {
   execute(){ echo cute; }
   run callstack
   test "$status" -eq 0
   test "$output" = "cute"
 }
 
-@test "正常系 parsers and execute()" {
+@test "VALID: parsers and execute()" {
   setall_parser;
   execute(){ echo some $cmd $opt $arg; }
   run callstack
@@ -39,7 +39,7 @@ setup(){
   test "$output" = "some that this them"
 }
 
-@test "正常系:結合 parsers and setexec()" {
+@test "VALID,XT: parsers and setexec()" {
   setall_parser;
   setexec echo some that this them
   run callstack

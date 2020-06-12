@@ -28,3 +28,5 @@ valid(){ test "$status" -eq 0 || return 1; }
 invalid(){ test "$status" -eq 1 || return 1; }
 visiblemsg(){ test ! -z "$output" && return 0 || return 1; }
 nomsg(){ test -z "$output" || return 1; }
+
+PATH=$PWD/bin:$PATH

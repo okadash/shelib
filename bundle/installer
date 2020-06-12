@@ -28,7 +28,7 @@ envinit(){
   command -v grep > /dev/null || {
     echo grep not found on your system \(required\); exit 1; 
   }
-  : ${SHELIB_ROOT:=$HOME/.shelib}
+  : ${SHELIB_ROOT:=$HOME/.shef}
   : ${SHELIB:=$SHELIB_ROOT/lib}
   : ${SHELIB_EXEC:=$SHELIB_ROOT/bin}
 }
@@ -53,12 +53,12 @@ install_shelib_files(){
 }
 
 install_loader_shrc(){
-  if echo $PATH | grep -E :\?$HOME/.shelib/bin:\? > /dev/null; then
+  if echo $PATH | grep -E :\?${SHELIB_ROOT}/bin:\? > /dev/null; then
     :;
   else
     case $SHELL in 
-      */bash) echo PATH=$HOME/.shelib/bin:$PATH | tee -a $HOME/.bashrc ;;
-      *) echo PATH=$HOME/.shelib/bin:$PATH | tee -a $HOME/.shrc ;;
+      */bash) echo PATH=${SHELIB_ROOT}/bin:$PATH | tee -a $HOME/.bashrc ;;
+      *) echo PATH=${SHELIB_ROOT}/bin:$PATH | tee -a $HOME/.shrc ;;
     esac
   fi
 }

@@ -3,48 +3,55 @@
 load test_helper
 
 setup(){
-  DUMMYFUNC_PATH=$PWD/test/bundle/cookedfuncdummy
-  PATH=$PWD/test/bundle:$PWD/bin:$PATH
-  echo 'cookedfuncdummy(){ test $# -ne 0 && setexec exit 0 || exit 1;}' > $DUMMYFUNC_PATH
+  DUMMYFUNC_PATH=$PWD/test/bundle/bin
+  DUMMYOUT_DIR=$PWD/test/.tmp
+  PATH=$DUMMYFUNC_PATH:$PWD/bin:$PATH
+
+  mkdir -vp $DUMMYFUNC_PATH
+
+  echo "dummycom(){ execute(){ echo 1 | tee -a $DUMMYOUT_DIR/out; }; argcheck(){ test \$# -ne 0 || exit 1;}; argcheck \$@; }" > $DUMMYFUNC_PATH/dummycom
+  echo "name_tester(){ execute(){ echo $this; }; }" > $DUMMYFUNC_PATH/name_tester
+  echo "id_tester(){ execute(){ echo $this_id; }; }" > $DUMMYFUNC_PATH/id_tester
   noncookedfuncdummy(){ test $# -eq 0 && setexec return 0 || return 1;}
-  chmod +x $DUMMYFUNC_PATH
-  set_loadenv(){ dummyenv=dummy; }
-  set_loadmod(){ dummymod(){ :;} ; }
-  create_tmpmod(){ mkdir $SHELIB_ROOT/lib/dummy echo 'dum(){ echo dumdum; }' > $SHELIB_ROOT/lib/dummy/dum
-  }
+  chmod +x $DUMMYFUNC_PATH/*
+
+  mkdir -vp $DUMMYOUT_DIR
 }
 
 teardown(){
-  rm $DUMMYFUNC_PATH
+  rm -rv $DUMMYFUNC_PATH 
+  rm -r $DUMMYOUT_DIR
 }
 
-@test "正常系: PATHに存在するshelib関数" {
-  setstub_parsers;
-  . $DUMMYFUNC_PATH
-  run cook cookedfuncdummy a b c
+@test "VALID: shelib function is inside a command in PATH" {
+  setstub_parsers
+  run cook dummycom a b c
   test "$status" -eq 0
+  test -f $DUMMYOUT_DIR/out
 }
 
-@test "正常系: PATHに存在しない関数のshelib stack を呼出" {
-  setstub_parsers;
-  run cook -f noncookedfuncdummy a b c
-  test "$status" -eq 2
+@test "VALID: do not call callstack() when shelib_uncook=1" {
+  export shelib_uncook=1
+  run cook dummycom a b c
+  test "$status" -eq 0
+  test ! -f $DUMMYOUT_DIR/out
 }
 
-@test "異常系: 引数未指定" {
+@test "INVALID: argument not specified" {
   setstub_parsers;
   run cook
   test "$status" -eq 1
 }
 
-@test "異常系: 引数はPATHに存在しない関数" {
+@test "INVALID: argument is NOT exist in PATH" {
   setstub_parsers;
-  run ./bin/cook noncookedfuncdummy a b c
+  run ./bin/cook noncookedfuncdummy 
   test "$status" -eq 1
 }
 
-@test "異常系: 引数は存在しない関数" {
+@test "INVALID: argument is NOT exist" {
   setstub_parsers;
-  run ./bin/cook notexistfuncdummy a b c
+  run ./bin/cook notexistfuncdummy
   test "$status" -eq 1
 }
+

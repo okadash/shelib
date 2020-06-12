@@ -1,9 +1,10 @@
 # MANIFEST
 
-SHELIB_MODULE_VERSION=0.2.3
+SHELIB_MODULE_VERSION=0.3.5
 SHELIB_MODULE_DESC="Essential library for shelib, shef and all shelib function"
 MODULE_AUTHER_NAME="Okadarien Saru"
 MODULE_AUTHER_EMAIL="okadas@dev.sysnk.net"
+MODULE_REPO_BASE="https://github.com/okadash/shelib/archive"
 
 # COMMAND REQUIREMENT
 # require grep sed head od dd printf

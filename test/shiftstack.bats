@@ -6,32 +6,32 @@ setup(){
   callstack(){ stubfunc; }
 }
 
-@test "正常系 引数1削除" {
+@test "VALID: an argument removed" {
   run shiftstack 1 a b c d e
   test "$status" -eq 0
 }
 
-@test "正常系 引数全削除" {
+@test "VALID: all argument removed" {
   run shiftstack 5 a b c d e
   test "$status" -eq 0
 }
 
-@test "正常系 引数削除数 0" {
+@test "VALID: no argument removed" {
   run shiftstack 0 a
   test "$status" -eq 0
 }
 
-@test "np正常系 引数=0" {
-  run shiftstack 0 a
+@test "VALID: both arguments are 0" {
+  run shiftstack 0 0
   test "$status" -eq 0
 }
 
-@test "np異常系 引数が未指定" {
+@test "INVALID: argument not specified" {
   run shiftstack
   test "$status" -eq 1
 }
 
-@test "np異常系 引数が負" {
+@test "INVALID: first argument is nagative value" {
   run shiftstack -5 a
   test "$status" -eq 1
 }

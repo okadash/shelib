@@ -4,12 +4,12 @@
 # description init for the call tree of shelib functions
 cook(){
   # shelib global variables
-  SHELIB_DIR=$HOME/.shelib/lib
-  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do . $i; done 
+  SHELIB_DIR=$HOME/.shef/lib
+  for i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do test -f $i && test ${i##/} != manifest && . $i; done
 
-  case $1 in 
+  case $1 in
     ##show shelib version
-    -V|--version) 
+    -V|--version)
       echo shelib-${SHELIB_MODULE_VERSION:?shelib version not defined} \(core/cook\); exit;;
     ##invoke shelib function with verbose mode
     -v)
@@ -17,27 +17,38 @@ cook(){
     ##invoke shelib function with xtrace mode
     -x)
       set -o xtrace; shift;;
-    ##cook argument function without PATH checking
-    -f|--func)
-      shift;;
     *) # check existence of an executable $1 in PATH
       command -v $1 > /dev/null || throw $1 not found in \$PATH ;;
   esac
 
-  # callstack identifier $this
-  this=$1
 
-  chk -e $1
-  # if function $1 not found, try to load it from the executable in PATH
-  type $1 | grep -qE "$1[[:blank:]]*\(\)" && return 0 || . `command -v $1`;
-  $@ || throw shelf broken;
-  ## todo: load default.env as an external file
-  type loadenv > /dev/null 2> /dev/null && loadenv
-  ## todo: run module.init if exist 
-  type loadmod > /dev/null 2> /dev/null && loadmod
-  ## remove function name itself
-  shift;
-  ## call execution stack 
-  callstack $@
+  ## call shelib execution stack
+  if test ${shelib_uncook:=0} != 1; then
+
+    # set callstack name $this
+    this=$1
+    # set readonly callstack identifier $this_id
+    this_id="$(genseed 10)"
+    : ${this_swp:=}
+    : ${this_id_swp:=}
+
+    sanitize $this_id
+    chk -e $1
+
+    export shelib_uncook=1;
+
+    # if function $1 not found, try to load it from the executable in PATH
+    type $1 | grep -v / > /dev/null && return 0 || . `command -v $1`;
+    $@ || throw shelf broken;
+    ## todo: run module.deps if exist
+    type loadmod > /dev/null 2> /dev/null && loadmod
+    ## todo: load default.env as an external file
+    type loadenv > /dev/null 2> /dev/null && loadenv
+    ## remove function name itself
+    shift;
+    callstack $@;
+  fi
+  
+  return 0;
 }
 cook $@

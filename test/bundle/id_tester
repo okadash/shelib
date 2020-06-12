@@ -1,0 +1,1 @@
+id_tester(){ execute(){ echo 1 | tee -a /home/ymash/Lab/shelib/core/test/.tmp/out; }; argcheck(){ test $# -ne 0 || exit 1;}; argcheck $@; }

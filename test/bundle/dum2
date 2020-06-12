@@ -13,36 +13,34 @@ parseopts(){
   case $1 in
     -t|--type) #type
     ##set dummy type
-    TYPE=".$2"; rmarg 2 $@ ;;
+    : ;;
 
     -F|--fix) ##MISC
     ##fix dummy
-    setexec "fix_dummy $2"; rmarg 2 $@;;
+    : ;;
 
     -d|--date) #day|+N|-N
     ##dummy date
-    set_date $2; rmarg 2 $@ ;;
+    : ;;
 
     -l*|--list) ##BREAK_OPT
     ##list dummy
-    setexec "dummy_list $@" ;;
+    : ;;
 
     -D|--directory) #dir
     ##specify dummy dir
-    DOC_DIR="`parse_dir $2`"; rmarg 2 $@ ;;
+    : ;;
 
-    -h|--help) #[--detail|--all] ##BREAK_OPT
+    -h|--help) #[--short] ##BREAK_OPT
     ##show this help
-    setexec "showhelp $2" ;;
+    setexec "showhelp $2"; return 0 ;;
 
     -v|--version) ##BREAK_OPT
     ##show version
-    setexec show_version;;
+    : ;;
 
     *)
-    set_doc_attr $1
-    setexec "nik_edit ${TARGETS}"
-    ;;
+    : ;;
   esac
 
 }

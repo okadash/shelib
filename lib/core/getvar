@@ -1,0 +1,8 @@
+#!/bin/sh
+# variable getter
+getvar(){
+  : ${this_id:?getvar: this_id is corrupted, abort!}
+  chk -v $1_$this_id
+  eval "echo \$$1_$this_id"
+  return 0
+}

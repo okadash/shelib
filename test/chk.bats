@@ -6,106 +6,106 @@ setup(){
   loadlib chk throw sanitize
 }
 
-@test "-e 正常系 引数が存在" {
+@test "VALID, -e: argument exists" {
   run chk -e "兎"
   test "$status" -eq 0
   test -z "$output"
 }
 
-@test "オプションなし 正常系 引数が存在" {
+@test "VALID, w/o option: argument exists" {
   run chk "梅"
   test "$status" -eq 0
   test -z "$output"
 }
 
-@test "-e 異常系 引数が空" {
+@test "INVALID -e: blank argument" {
   run chk -e ""
   test "$status" -eq 1
   test "$output" = "no argument, abort!"
 }
 
-@test "オプションなし 異常系 引数が空" {
+@test "INVALID, w/o option: blank argument" {
   run chk -e ""
   test "$status" -eq 1
   test "$output" = "no argument, abort!"
 }
 
-@test "-e 異常系 引数が未指定" {
+@test "INVALID -e: argument not specified" {
   run chk -e 
   test "$status" -eq 1
   test "$output" = "no argument, abort!"
 }
 
-@test "-v 正常系 変数が定義済" {
+@test "VALID -v: variable declared" {
   it=is
   run chk -v it
   test "$status" -eq 0
 }
 
-@test "-v 異常系 変数が未定義" {
+@test "INVALID -v: variable not declared" {
   that=
   run chk -v that
   test "$status" -eq 1
 }
 
-@test "-n 正常系 引数が整数" {
+@test "VALID -n: argument is unsigned integer" {
   run chk -n 15
   test "$status" -eq 0
 }
 
-@test "-n 正常系 引数が0" {
+@test "VALID -n: argument is ZERO" {
   run chk -n 0
   test "$status" -eq 0
 }
 
-@test "-n アーキテクチャ依存: 正常系 引数が巨大な整数" {
+@test "VALID -n archtecture-dependent: argument is a big integer" {
   run chk -n 928381752187239182
   test "$status" -eq 0
 }
 
-@test "-n アーキテクチャ依存: 異常系 引数が巨大すぎる整数" {
+@test "INVALID -n archtecture-dependent: argument is a too big integer" {
   run chk -n 928381752187239182182938
   test "$status" -eq 1
 }
 
-@test "-n 異常系 引数が負の値" {
+@test "INVALID -n: argument is a negative integer" {
   run chk -n -10
   test "$status" -eq 1
 }
 
-@test "-n 異常系 引数が浮動小数点数" {
+@test "INVALID -n: argument is a float" {
   run chk -n 3.14
   test "$status" -eq 1
 }
 
-@test "-n 異常系 引数が文字列" {
-  run chk -n "馬脚"
+@test "INVALID -n: argument is a string" {
+  run chk -n "horsenose"
   test "$status" -eq 1
 }
 
-@test "-n 異常系 引数が未指定" {
+@test "INVALID -n: argument not specified" {
   run chk -n 
   test "$status" -eq 1
 }
 
-@test "-f 正常系 ファイルが存在" {
+@test "VALID -f: file exists" {
   touch .testing_compound
   run chk -f .testing_compound
   test "$status" -eq 0
   rm .testing_compound
 }
 
-@test "-f 異常系 ファイルが不在" {
+@test "INVALID -f: file not exist" {
   run chk -f .nontesting_compound
   test "$status" -eq 1
 }
 
-@test "-x 正常系 実行ファイルが存在" {
+@test "VALID -x: executable exist in PATH" {
   run chk -x sh
   test "$status" -eq 0
 }
 
-@test "-x 異常系 実行ファイルが不在" {
+@test "VALID -x: executable not exist in PATH" {
   run chk -x doit_doish_nekoneko-earthlove
   test "$status" -eq 1
 }
