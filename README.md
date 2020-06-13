@@ -78,15 +78,16 @@ These functions are reserved inside *callstack()*. If exist, they are invoked at
   - SHELIB_CHARDEL
   - SHELIB_TABADD
   - SHELIB_TABDEL
-* showhelp uses 8 internal functions. DO NOT use/declare these functions in your functions:
+* showhelp uses 9 internal functions. DO NOT use/declare these functions in your functions:
   - shelib_show_usage
   - shelib_show_manifest
   - chk_helpdoc_exist
   - showhelp_core
   - showhelp_detail
   - showhelp_inline
-  - set_help_header unset_internal
-  - get_help_header unset_internal
+  - set_help_header
+  - get_help_header
+  - unset_internal
 
 # TODO
 * make usage documentation
