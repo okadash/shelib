@@ -40,7 +40,7 @@ teardown(){
 @test "INVALID: argument not specified" {
   setstub_parsers;
   run cook
-  test "$status" -eq 1
+  test "$status" -ne 0
 }
 
 @test "INVALID: argument is NOT exist in PATH" {
