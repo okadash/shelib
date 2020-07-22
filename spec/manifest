@@ -8,6 +8,9 @@ MODULE_AUTHER_NAME="Anyone"
 MODULE_AUTHER_EMAIL="john@example.com"
 MODULE_REPO_BASE="https://github.com/example/example
 
+MODULE_OPTION_DEFAULT_DESC="<command>"
+MODULE_SUBCOMMAND_DEFAULT_DESC=
+
 # COMMAND REQUIREMENT
 # specify required binaries in here
 require grep sed head od dd printf
