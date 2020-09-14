@@ -9,7 +9,7 @@ setup(){
 
   mkdir -vp $DUMMYFUNC_PATH
 
-  echo "dummycom(){ execute(){ echo 1 | tee -a $DUMMYOUT_DIR/out; }; argcheck(){ test \$# -ne 0 || exit 1;}; argcheck \$@; }" > $DUMMYFUNC_PATH/dummycom
+  echo "dummycom(){ execute(){ echo 1 | tee -a \$PWD/test/.tmp/out; }; argcheck(){ test \$# -ne 0 || exit 1;}; argcheck \$@; }" > $DUMMYFUNC_PATH/dummycom
   echo "name_tester(){ execute(){ echo $this; }; }" > $DUMMYFUNC_PATH/name_tester
   echo "id_tester(){ execute(){ echo $this_id; }; }" > $DUMMYFUNC_PATH/id_tester
   noncookedfuncdummy(){ test $# -eq 0 && setexec return 0 || return 1;}

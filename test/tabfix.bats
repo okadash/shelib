@@ -5,7 +5,7 @@ load test_helper
 setup(){
   loadlib tabfix
   showsample(){ 
-    cat test/bundle/tabsample/$1 || { echo invalid sample ; exit 1;}
+    cat test/templates/tabsample_$1 || { echo invalid sample ; exit 1;}
   }
 }
 
