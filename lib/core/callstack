@@ -11,5 +11,5 @@ callstack(){
   done
   #execute stack set with set_exec and no execute()
   silent type execute || ${exec_cmd:=throw exec_cmd not set};
-  exit 0;
+  exit
 }
