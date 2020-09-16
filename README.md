@@ -43,7 +43,7 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
 
 ## shelib initiator
-These functions are reserved inside `cook` script. If exist, they are invoked at once for the shelib function
+These functions are reserved inside `cook` script. If exist, they are invoked at once for the shelib function.
 
 | name | description |
 | --- | --- |
@@ -62,7 +62,7 @@ These functions are reserved inside `callstack()`. If exist, they are invoked at
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
-* Now we support 14 shelib builtins:
+* Now we support 10 shelib builtins:
 
 | name | description |
 | --- | --- |
@@ -75,10 +75,6 @@ These functions are reserved inside `callstack()`. If exist, they are invoked at
 | *setexec* | set execute command for shelib callstack |
 | *silent* | suppress command output and return termination status |
 | *askyn* | ask y/n and return 0 or 1 |
-| *setvar* | internal use (set variables for internal references) |
-| *getvar* | internal use (get variables from internal references |
-| *genseed* | generate urandom hex |
-| *tabfix* | pretty tabs and spaces for formatted output |
 | *showhelp* | show help for the shelib function |
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md)
