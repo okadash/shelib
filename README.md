@@ -44,7 +44,7 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
 
 ## shelib initiator
-These functions are reserved inside `cook` script. If exist, they are invoked at once for the shelib function.
+These functions are reserved inside `cook` script. If initiator functions below declared, they are invoked at once for the shelib function.
 
 | name | description |
 | --- | --- |
@@ -53,7 +53,7 @@ These functions are reserved inside `cook` script. If exist, they are invoked at
 | **loadenv** | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
 
 ## callstack components
-These functions are reserved inside `callstack()`. If exist, they are invoked at one or more times.
+These functions are reserved inside `callstack()`. If callstack component functions are declared inside a shelib function, they are invoked at one or more times for the `cook` invokation.
 
 | name | description |
 | --- | --- |
