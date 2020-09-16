@@ -4,7 +4,7 @@
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
 # Quick start
-shelib has *builtin functions* and initiator script *cook* .  Any user can sideload all shelib builtin function with cooking your shell function like this:
+shelib has *builtin functions* and initiator script `cook` .  Any user can sideload all shelib builtin function with cooking your shell function like this:
 ```
 #!/bin/sh
 
@@ -14,9 +14,9 @@ yourfunction(){ something_here ; }
 
 cook yourfunction $@
 ```
-That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function. 
-If you don't use any shelib builtins, the function will be simply invoked and exit. 
-You can use *yourfunction* as a style-free generic shell function and any procedure can be freely described in the function in your order, with or without usage of shelib builtin functions.
+That's all to do, needed to load shelib builtin functions for *yourfunction*. You can use shelib builtins inside the cooked function. If you don't use any shelib builtins, the function will be simply invoked and exit. 
+
+You can use *yourfunction* as a style-free generic shell function and any procedure can be freely written in shell script in your order, with or without usage of shelib builtin functions.
 
 # Install
 
