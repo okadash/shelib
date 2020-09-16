@@ -8,15 +8,19 @@ shelib has *builtin functions* and initiator script `cook` .  Any user can sidel
 ```
 #!/bin/sh
 
-...
-yourfunction(){ something_here ; }
-...
+yourfunction(){
+  something_here...
+  ...
+}
 
 cook yourfunction $@
 ```
 That's all to do, needed to load shelib builtin functions for *yourfunction*. You can use shelib builtins inside the cooked function. If you don't use any shelib builtins, the function will be simply invoked and exit. 
 
 You can use *yourfunction* as a style-free generic shell function and any procedure can be freely written in shell script in your order, with or without usage of shelib builtin functions.
+
+(There are some limitations to load shell scripting assets for cooked functions.)
+
 
 # Install
 
