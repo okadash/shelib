@@ -26,8 +26,11 @@ cd this_repo_path
 # Usage sample
 
 [@okadash/nik](https://github.com/okadash/nik) note taking wrapper script for vimmers
+
 [@okadash/shef](https://github.com/okadash/shef) shelib function package manager
+
 [@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for docker/lxc/lxd
+
 [@okadash/indigo](https://github.com/okadash/indigo) Indigo API cli tool
 
 # Dive to depth
