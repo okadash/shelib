@@ -18,7 +18,10 @@ chk(){
       test $2 -ge 0 2>/dev/null || throw argument must be an integer: $2 ;;
     -f) ## check whether file exist or not
       chk -e $2
-      test -f $2 || throw $2 not exist ;; 
+      test -f $2 || throw file $2 not exist ;; 
+    -d) ## check whether file exist or not
+      chk -e $2
+      test -d $2 || throw directory $2 not exist ;; 
     -x) ## check whether executable exist in PATH or not
       chk -e $2
       command -v $2 > /dev/null || throw $2 not found in PATH ;; 

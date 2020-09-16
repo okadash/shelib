@@ -4,8 +4,8 @@ load test_helper
 
 setup(){
   loadlib chk throw sanitize
-  test -x test/bundle/dum2
-  PATH=$PWD/test/bundle:$PATH
+  test -x test/templates/bin/dum2
+  PATH=$PWD/test/templates/bin:$PATH
 }
 
 @test "VALID: return 0 for valid showhelp invokation" {
