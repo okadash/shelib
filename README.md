@@ -84,6 +84,10 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
+## shelib packages
+
+You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
+
 See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
 
 # Contact
