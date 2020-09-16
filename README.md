@@ -61,8 +61,7 @@ These functions are reserved inside `callstack()`. If exist, they are invoked at
 | `execute` | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after `execute`. |
 
 ## shelib builtin functions
-* shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
-* Now we support 10 shelib builtins:
+shelib core library (lib/core) includes shelib builtin functions to be loaded from `cook`. Now we support 10 shelib builtins:
 
 | name | description |
 | --- | --- |
