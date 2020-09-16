@@ -77,6 +77,7 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `showhelp` | show help for the shelib function |
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md)
+
 See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
 
 # Contact
