@@ -52,7 +52,7 @@ These functions are reserved inside `cook` script. If exist, they are invoked at
 | **loadenv** | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
 
 ## callstack components
-These functions are reserved inside `callstack()`. If exist, they are invoked at once and several times. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
+These functions are reserved inside `callstack()`. If exist, they are invoked at one or more times.
 
 | name | description |
 | --- | --- |
