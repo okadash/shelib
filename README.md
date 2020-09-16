@@ -73,11 +73,11 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `callstack` | call shelib pre-defined loop |
 | `this` | object referencing command |
 | `require` | load dependency |
-| `throw` | throw exception and exit with status code 1 |
-| `chk` | validate argument type |
+| `throw` | throw exception and exit with status 1 |
+| `chk` | validate the type of the argument |
 | `sanitize` | sanitize arguments for invalid/malformed commandline argument |
 | `setexec` | set execute command for shelib callstack |
-| `silent` | suppress command output and return termination status |
+| `silent` | suppress command output and return status |
 | `askyn` | ask y/n and return 0 or 1 |
 | `showhelp` | show help for the shelib function |
 
