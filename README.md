@@ -39,7 +39,7 @@ cd this_repo_path
 shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. For OOP in shelib, see [this](https://shell-and-oop.githubusercontent.com).
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
-* `callstack()` function invokes reserved parsers `parsecmds`, `parseopts` and `parseargs` and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
+* `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
 * All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
 
 ## shelib initiator
@@ -48,17 +48,17 @@ These functions are reserved inside `cook` script. If exist, they are invoked at
 | name | description |
 | --- | --- |
 | `cook` | make a shell function to a **shelib function**, load shelib builtins for the first argument and invoke it |
-| *loadmod* | load external shell scripts, shelib submodules and any type of dependencies for the shelib functions |
-| *loadenv* | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
+| **loadmod** | load external shell scripts, shelib submodules and any type of dependencies for the shelib functions |
+| **loadenv** | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
 
 ## callstack components
 These functions are reserved inside `callstack()`. If exist, they are invoked at once and several times. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
 
 | name | description |
 | --- | --- |
-| *parseopts* | parse options, invoked before ** *parseargs* ** |
-| *parseargs* | parse arguments (also can parse --opt style option parsing) |
-| *execute* | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after *execute*. |
+| **parseopts** | parse options, invoked before **parseargs** |
+| **parseargs** | parse arguments (also can parse --opt style option parsing) |
+| **execute** | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after *execute*. |
 
 ## shelib builtin functions
 shelib core library (lib/core) includes shelib builtin functions to be loaded from `cook`. Now we support 10 shelib builtins:
