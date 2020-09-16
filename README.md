@@ -25,7 +25,8 @@ You can use *yourfunction* as a style-free generic shell function and any proced
 # Install
 
 ```
-cd this_repo_path
+git clone https://github.com/okadash/shelib shelib
+cd shelib
 ./install.sh
 ```
 
