@@ -48,33 +48,33 @@ These functions are reserved inside `cook` script. If exist, they are invoked at
 | name | description |
 | --- | --- |
 | `cook` | make a shell function to a **shelib function**, load shelib builtins for the first argument and invoke it |
-| `loadmod` | load external shell scripts, shelib submodules and any type of dependencies for the shelib functions |
-| `loadenv` | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
+| ** *loadmod* **  | load external shell scripts, shelib submodules and any type of dependencies for the shelib functions |
+| ** *loadenv* ** | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
 
 ## callstack components
 These functions are reserved inside `callstack()`. If exist, they are invoked at once and several times. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
 
 | name | description |
 | --- | --- |
-| `parseopts` | parse options, invoked before `parseargs` |
-| `parseargs` | parse arguments (also can parse --opt style option parsing) |
-| `execute` | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after `execute`. |
+| ** *parseopts* ** | parse options, invoked before ** *parseargs* ** |
+| ** *parseargs* ** | parse arguments (also can parse --opt style option parsing) |
+| ** *execute* ** | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after ** *execute* **. |
 
 ## shelib builtin functions
 shelib core library (lib/core) includes shelib builtin functions to be loaded from `cook`. Now we support 10 shelib builtins:
 
 | name | description |
 | --- | --- |
-| *callstack* | call shelib pre-defined loop |
-| *this* | object referencing command |
-| *require* | load dependency |
-| *throw* | throw exception and exit with status code 1 |
-| *chk* | check argument psuedo-type |
-| *sanitize* | sanitize arguments for invalid/malformed commandline argument |
-| *setexec* | set execute command for shelib callstack |
-| *silent* | suppress command output and return termination status |
-| *askyn* | ask y/n and return 0 or 1 |
-| *showhelp* | show help for the shelib function |
+| `callstack` | call shelib pre-defined loop |
+| `this` | object referencing command |
+| `require` | load dependency |
+| `throw` | throw exception and exit with status code 1 |
+| `chk` | check argument psuedo-type |
+| `sanitize` | sanitize arguments for invalid/malformed commandline argument |
+| `setexec` | set execute command for shelib callstack |
+| `silent` | suppress command output and return termination status |
+| `askyn` | ask y/n and return 0 or 1 |
+| `showhelp` | show help for the shelib function |
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md)
 See  [@okadash/shef](https://github.com/okadash/shef) shelib function package manager
