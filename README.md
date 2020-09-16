@@ -14,8 +14,8 @@ yourfunction(){ something_here ; }
 
 cook yourfunction $@
 ```
-That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function.
-If you don't use any shelib builtins, the function will be simply invoked and exit.
+That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function. 
+If you don't use any shelib builtins, the function will be simply invoked and exit. 
 You can use *yourfunction* as a style-free generic shell function and any procedure can be freely described in the function in your order, with or without usage of shelib builtin functions.
 
 # Install
