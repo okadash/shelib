@@ -1,9 +1,9 @@
 **@shelib/core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
-# ABOUT
+# About
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
-# FEATURES
+# Quick start
 shelib has *builtin functions* and initiator script *cook* .  Any user can sideload all shelib builtin function with cooking your shell function like this:
 ```
 #!/bin/sh
@@ -15,8 +15,9 @@ yourfunction(){ something_here ; }
 cook yourfunction $@
 ```
 That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function.
+If you don't use any shelib builtins, the function will be simply invoked and exit.
 
-# INSTALL
+# Install
 
 ```
 cd this_repo_path
@@ -26,50 +27,60 @@ cd this_repo_path
 # Usage sample
 
 [@okadash/nik](https://github.com/okadash/nik) note taking wrapper script for vimmers
+
 [@okadash/shef](https://github.com/okadash/shef) shelib function package manager
+
 [@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for docker/lxc/lxd
+
 [@okadash/indigo](https://github.com/okadash/indigo) Indigo API cli tool
 
-# Dive to depth
+# Features
 
-shelib is designed to reduce loop declarations, and to unify argument parsing mechanisms for shell functions.
+shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. For OOP in shelib, see [this](https://shell-and-oop.githubusercontent.com).
 
-*cook* sets shelib callstack for the cooked function (hereby called **shelib function**) and *callstack* function is immediately invoked after the cook execution.
+* `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
+* `callstack()` function invokes reserved parsers `parsecmds`, `parseopts` and `parseargs` and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
+* All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
 
-*callstack()* function invokes reserved parsers *parsecmds*, *parseopts* and *parseargs* and if you declare these reserved parser functions inside the shelib function, each of them is invoked in the order and the new callstack loop is set to run *shiftstack()* with shift value and arguments $@.
+## shelib initiator
+These functions are reserved inside `cook` script. If exist, they are invoked at once for the shelib function
 
-*shiftstack()* sets a new callstack for arguments $@ and make additional loop for given arguments with shift value. (so two arguments needed)
-If no *shiftstack()* runs, all parser and *execute()* simply invoked, and exit.
-All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
-
-## shelib global components
-These functions are reserved inside *cook*. If exist, they are invoked at one time for the shelib function
-* loadmod: good to load external shell scripts or shell functions
-* loadenv: good to declare environmental variables for shelib funcitons
+| name | description |
+| --- | --- |
+| `cook` | make a shell function to a **shelib function**, load shelib builtins for the first argument and invoke it |
+| `loadmod` | load external shell scripts, shelib submodules and any type of dependencies for the shelib functions |
+| `loadenv` | set global environmental variables. Global variable declaration is not recommended in shelib functions. use object referencing with `this` command. |
 
 ## callstack components
-These functions are reserved inside *callstack()*. If exist, they are invoked at several times with *shiftstack()*. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
-* parsecmds: subcommand parser, good to describe *if* or *case* syntax for your subcommand definition
-* parseopts: option parser
-* parseargs: argument parser
-* execute: execution stack. if exist, run it at the last of the callstack. If there are any command insersion by *setexec()*, command set by *setexec()* runs after *execute*.
+These functions are reserved inside `callstack()`. If exist, they are invoked at once and several times. If you don't invoke *shiftstack()* inside your shelib function, all callstack component will be simplly invoked at one time and exit.
+
+| name | description |
+| --- | --- |
+| `parseopts` | parse options, invoked before `parseargs` |
+| `parseargs` | parse arguments (also can parse --opt style option parsing) |
+| `execute` | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after `execute`. |
 
 ## shelib builtin functions
 * shelib core library (lib/core) includes shelib builtin functions to be loaded from *cook*
 * Now we support 14 shelib builtins:
-  - *callstack*
-  - *genseed*
-  - *shiftstack*
-  - *throw*
-  - *silent*
-  - *askyn*
-  - *sanitize*
-  - *setvar*
-  - *getvar*
-  - *require*
-  - *setexec*
-  - *showhelp*
-  - *tabfix*
-  - *chk*
+
+| name | description |
+| --- | --- |
+| *callstack* | call shelib pre-defined loop |
+| *this* | object referencing command |
+| *require* | load dependency |
+| *throw* | throw exception and exit with status code 1 |
+| *chk* | check argument psuedo-type |
+| *sanitize* | sanitize arguments for invalid/malformed commandline argument |
+| *setexec* | set execute command for shelib callstack |
+| *silent* | suppress command output and return termination status |
+| *askyn* | ask y/n and return 0 or 1 |
+| *setvar* | internal use (set variables for internal references) |
+| *getvar* | internal use (get variables from internal references |
+| *genseed* | generate urandom hex |
+| *tabfix* | pretty tabs and spaces for formatted output |
+| *showhelp* | show help for the shelib function |
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md)
+See  [@okadash/shef](https://github.com/okadash/shef) shelib function package manager
+
