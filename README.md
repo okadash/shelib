@@ -16,6 +16,7 @@ cook yourfunction $@
 ```
 That's all to do, needed to load shelib builtin functions for yourfunction. You can use shelib builtins inside the cooked function.
 If you don't use any shelib builtins, the function will be simply invoked and exit.
+You can use *yourfunction* as a style-free generic shell function and any procedure can be freely described in the function in your order, with or without usage of shelib builtin functions.
 
 # Install
 
@@ -39,8 +40,8 @@ cd this_repo_path
 shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. For OOP in shelib, see [this](https://shell-and-oop.githubusercontent.com).
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
-* `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
-* All shelib function is style-free as like as generic shell functions and any constraints can be freely described in shelib functions in your order, with or without usage of shelib builtin functions.
+* `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. 
+* If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
 
 ## shelib initiator
 These functions are reserved inside `cook` script. If exist, they are invoked at once for the shelib function.
@@ -76,7 +77,7 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `askyn` | ask y/n and return 0 or 1 |
 | `showhelp` | show help for the shelib function |
 
-For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md)
+For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
 See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
 
