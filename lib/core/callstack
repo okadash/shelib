@@ -1,15 +1,15 @@
 #!/bin/sh
-#callstack
 # main routine for shelib functions
-callstack(){
+callstack(){ #$@
   #parseopts: parse options
   #parsecmds: parse subcommands
   #parseargs: parse other arguments
   #execute: execute stack set
-  for shelib_i in parseopts parsecmds parseargs execute; do
+  for shelib_i in parseopts parsecmds parseargs; do
     silent type $shelib_i && $shelib_i $@
   done
   #execute stack set with set_exec and no execute()
+  silent type execute && execute
   silent type execute || ${exec_cmd:=throw exec_cmd not set};
   exit
 }

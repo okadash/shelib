@@ -1,6 +1,6 @@
 #!/bin/sh
 # generic check function for arguments and variables
-chk(){
+chk(){ #[-evnfdx] #<target>
   
   case $1 in
     -e) ## check argument existence

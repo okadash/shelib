@@ -1,8 +1,6 @@
 #!/bin/sh
-# showhelp
 # show help for shelib-style inline document
-
-showhelp(){
+showhelp(){ #[--all]
 
   load_volatile showhelp
 

@@ -1,8 +1,6 @@
 #!/bin/sh
-# askyn
-# Usage: askyn
-
-askyn(){
+# ask y/n and return 0 or 1
+askyn(){ #<message>
   while :; do
     printf "$* [y/n] "
     read shelib_askyn_resp;
