@@ -1,0 +1,13 @@
+#!/bin/sh
+shelib_load_shpkg_content () 
+{ 
+    : ${1:?shelib_load_shpkg_content: argument needed, abort!};
+    test -f $1 || test -d $1 || throw "$1 not exist in shelibdir";
+    test -f $1 && { 
+	setvar gc_target "`getvar gc_target 2> /dev/null` $1"
+        . $1 || throw "loading failure $1 "
+    };
+    test -d $1 && { 
+        shelib_load_shpkg_dir $1 || throw "loading failure $1"
+    }
+}

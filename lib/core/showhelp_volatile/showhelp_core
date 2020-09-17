@@ -1,0 +1,7 @@
+#!/bin/sh
+showhelp_core () 
+{ 
+    set_help_header $1;
+    get_help_header > /dev/null;
+    grep -EA100 \^\ \*\#"`get_help_header`" `which $this` | grep -EB100 \^\ \*\#"`get_help_header`" | grep -A100 case\ \\\$1 | grep -B100 esac\ \*\$ | grep -vE "[[:space:]^](case|esac)[[:space:]$]" | grep -E "([[:blank:]]*[[:alnum:]]+\)|[[:blank:]]*##.+)" || return 1
+}

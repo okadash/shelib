@@ -5,11 +5,12 @@ chk(){
   case $1 in
     -e) ## check argument existence
       test -z "$2" && { 
-          shift 2; 
-	  msg="no argument"
-	  test "$1" = "-m" && { shift; msg="$*"; }
-	  throw $msg
-	} ;;
+	msg="no argument"
+	test "$1" = "-m" && { shift; msg="$*"; }
+	throw $msg
+      }
+      shift 2; 
+      ;;
     -v) ## check the variable set or not
       test $# -eq 1 && noarg_error
       sanitize $2; eval "chk -e \$$2" ;;

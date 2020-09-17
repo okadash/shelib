@@ -1,0 +1,7 @@
+#!/bin/sh
+shelib_chk_manifest () 
+{ 
+    : ${1:?shelib_chk_manifest: shelib_chk_manifest: argument needed, abort!};
+    chk -d $1;
+    test -f $1/manifest || throw "shelib_chk_manifest: manifest not found for $shelib_i"
+}

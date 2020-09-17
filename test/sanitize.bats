@@ -11,6 +11,11 @@ setup(){
   test "$status" -eq 0
 }
 
+@test "VALID: spaces not sanitized" {
+  run sanitize "            "
+  test "$status" -eq 0
+}
+
 @test "SANITIZED: semi-colon detected" {
   run sanitize echo "echo; exec shellcodesums;"
   test "$status" -eq 1

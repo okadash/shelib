@@ -26,3 +26,7 @@ setup(){
   test "$status" -eq 1
 }
 
+@test "INVALID: variable not assigned to specified argument" {
+  run getvar mok
+  test "$status" -eq 1
+}

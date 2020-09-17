@@ -1,0 +1,7 @@
+#!/bin/sh
+showhelp_detail () 
+{ 
+    set_help_header $1;
+    echo $1 | sed -r -e s/SHELIB_//g -e s/\$/:/ | tr A-Z a-z | tr -d \\\n;
+    showhelp_core ${1:?showhelp_detail: argument needed} | sed -r -e s/\^/SOL/g -e "s/SOL[[:blank:]]*##/\t##/g" | tr -d \\\n | sed -e s/SOL/\\\n/g | tabfix | grep -v ${SHELIB_HELP_MISC:-MISC} || return 1
+}

@@ -2,14 +2,24 @@
 
 load test_helper
 
+make_echo_script(){
+  echo -e \#!/bin/sh\\\nechok\(\)\{ echo ok\; \}\\\nechok > ${ECHO_SCRIPT_PATH:?ECHO_SCRIPT_PATH not set}
+}
 setup(){
-  loadlib require chk throw sanitize
+  loadlib require chk throw sanitize load_volatile setvar getvar
   SHELIB_DIR=$PWD/lib
+  ECHO_SCRIPT_PATH=$PWD/test/bundle/echok
   export SHELIB_DIR
+  make_echo_script
+  this_id=dummy_id_hoge
+}
+teardown(){
+  rm -v $ECHO_SCRIPT_PATH
 }
 
 @test "VALID: load shelib module @core/chk" {
   run require @core/chk
+  chk -e 1
   test "$status" -eq 0
 }
 
@@ -21,10 +31,10 @@ setup(){
 }
 
 @test "VALID: /path/to/script syntax" {
-  run require $PWD/test/bundle/dum2func
-  require $PWD/test/bundle/dum2func
+  run require $ECHO_SCRIPT_PATH
+  require $ECHO_SCRIPT_PATH
   test "$status" -eq 0
-  type dum2func
+  type echok
 }
 
 @test "VALID: executable exist in PATH" {

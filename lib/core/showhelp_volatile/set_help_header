@@ -1,0 +1,6 @@
+#!/bin/sh
+set_help_header () 
+{ 
+    : ${1:?shelib help header must be set};
+    help_header=${1:-GOCHAS_SHELIB_HELPME_HOGE}
+}
