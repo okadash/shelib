@@ -37,3 +37,8 @@ setup(){
   run setvar hoge fuga
   test "$status" -eq 1
 }
+
+@test "VALID: argument contains spaces only" {
+  run setvar kore "    "
+  test "$status" -eq 0
+}

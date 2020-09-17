@@ -1,22 +1,26 @@
 #!/bin/sh
 # check external executables to resolve dependency
 require(){
+
   chk -e $1
+
+  load_volatile require
+
   for shelib_i in $@; do
-    shelib_setdir_loaded=${SHELIB_DIR:?SHELIB_DIR not defined}/${shelib_i##@}
-    case $1 in
-      @*/*) ## @shpkg/shmod syntax: load shelib module from SHELIB_DIR
-        test -f ${shelib_setdir_loaded} || throw "$1 not exist in shelibdir"
-        . $shelib_setdir_loaded || throw "loading failure" ;;
-      @*) ## @shpkg syntax: load all shelib module from shpkg
-        test -d "$shelib_setdir_loaded" \
-          && for shelib_j in $shelib_setdir_loaded/* ; do test -f $shelib_j && . $shelib_j ; done \
-          || throw shpkg $1 not found;;
+    : ${shelib_loading_target:=${SHELIB_DIR:?SHELIB_DIR not defined}/${shelib_i##@}}
+    case $shelib_i in
+      +*) ## +submod syntax: load shelib submodule dir (valid syntax in modules)
+        shelib_load_shpkg_dir ${SHELIB_DIR}/${this:?this not set}/${shelib_i##+} ;;
+      @*/*) ## @shpkg/shmod syntax: load a shelib module or directory from shpkg
+        shelib_load_shpkg_content $shelib_loading_target ;;
+      @*) ## @shpkg syntax: load all primary shelib module file from shpkg
+	shelib_load_shpkg_dir $shelib_loading_target ;;
       /*) ## /path/to/script syntax: directly load script with full path
-        test -f $1 && . $1 || throw "failed to load $1" ;;
+        test -f $shelib_i && . $shelib_i || throw "failed to load $shelib_i" ;;
       *) ## generic requirement check: check executable exists in PATH or not
         sanitize $shelib_i; chk -x $shelib_i ;;
     esac
   done
+  unset_shelib_internal
   return 0
 }

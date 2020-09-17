@@ -1,6 +1,6 @@
 # MANIFEST
 
-SHELIB_MODULE_VERSION=0.4.1
+SHELIB_MODULE_VERSION=0.5.0
 SHELIB_MODULE_DESC="Essential library for shelib, shef and all shelib function"
 MODULE_AUTHER_NAME="Okadarien Saru"
 MODULE_AUTHER_EMAIL="okadas@dev.sysnk.net"

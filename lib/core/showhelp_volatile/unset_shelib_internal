@@ -1,0 +1,8 @@
+#!/bin/sh
+unset_shelib_internal () 
+{ 
+    for shelib_k in shelib_show_usage shelib_show_manifest chk_helpdoc_exist showhelp_core showhelp_detail showhelp_inline set_help_header get_help_header;
+    do
+        unset $shelib_k;
+    done
+}

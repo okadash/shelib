@@ -1,8 +1,9 @@
 #!/bin/sh
 # set execcmd to break callstack
-setexec(){
+setexec(){ #<exec_cmd>
   test $# -eq 0 && throw argument needed
   sanitize $*
   exec_cmd="$*"
+  readonly exec_cmd
   return 0
 }

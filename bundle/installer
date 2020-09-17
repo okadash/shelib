@@ -41,6 +41,7 @@ check_opt(){
 
 init_shelibdir(){
   test -d $SHELIB_ROOT || mkdir -v $SHELIB_ROOT
+  test -d $SHELIB_ROOT/core || mkdir -v $SHELIB_ROOT/core
   test -d $SHELIB || mkdir -vp $SHELIB
   test -d $SHELIB_EXEC || mkdir -vp $SHELIB_EXEC
 }

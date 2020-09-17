@@ -1,0 +1,19 @@
+#!/bin/sh
+shelib_load_shpkg_dir ()
+{
+    : ${1:?shelib_load_shpkg_dir: argument needed, abort!};
+    test -d $1 || throw shpkg $1 not found;
+    shelib_chk_manifest $1;
+    for shelib_j in $1/*;
+    do
+      test -d $shelib_j && test ${shelib_j##*/} = core \
+        && for shelib_k in $shelib_j/*; do 
+	  setvar gc_target "`getvar gc_target 2> /dev/null` ${shelib_k##*/}"
+	  test -f $shelib_k && . $shelib_k; 
+	done
+      test -f $shelib_j && {
+	setvar gc_target "`getvar gc_target 2> /dev/null` ${shelib_j##*/}"
+        . $shelib_j;
+      }
+    done
+}

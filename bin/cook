@@ -1,13 +1,15 @@
 #!/bin/sh
-# cooking shelib functions
-# usage: cook shelib_function
-# description init for the call tree of shelib functions
-cook(){
+# shelib function initiator command
+cook(){ #[-vx] #<shelib function> #$@
+
   # shelib global variables
-  SHELIB_DIR=$HOME/.shef/lib
+  SHELIB_DIR=${SHELIB_DIR:-$HOME/.shef/lib}
+  readonly SHELIB_DIR
+  exec_cmd=
+
   #library loading
   for shelib_i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do
-    test -f $shelib_i && test ${shelib_i##*/} != manifest && . $shelib_i; 
+    test -f $shelib_i  && . $shelib_i; 
   done
 
   case $1 in
@@ -32,7 +34,6 @@ cook(){
   ## call shelib execution stack
   if test ${shelib_uncook:=0} != 1; then
 
-
     # set callstack name $this
     this=$1
     # set readonly callstack identifier $this_id
@@ -42,6 +43,9 @@ cook(){
 
     sanitize $this_id
     : ${1:?cook: at least one argument needed, abort!};
+
+    # garbage collector initialization
+    setvar gc_target "gc_target"
 
     export shelib_uncook=1;
 
@@ -55,6 +59,9 @@ cook(){
     shift;
     callstack $@;
   fi
+
+  # garbage collection for required functions
+  unset `getvar gc_target`
   
   return 0;
 }

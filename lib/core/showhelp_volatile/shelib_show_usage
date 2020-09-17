@@ -1,0 +1,17 @@
+#!/bin/sh
+shelib_show_usage () 
+{ 
+    chk -e $1;
+    case $1 in 
+        SHELIB_OPTIONS)
+            MODULE_DEFAULT_DESC=$MODULE_OPTION_DEFAULT_DESC
+        ;;
+        SHELIB_SUBCOMMANDS)
+            MODULE_DEFAULT_DESC=$MODULE_SUBCOMMAND_DEFAULT_DESC
+        ;;
+        *)
+            return 0
+        ;;
+    esac;
+    echo \ \ $this [`showhelp_inline $1`] "$MODULE_DEFAULT_DESC"
+}

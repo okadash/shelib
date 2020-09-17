@@ -1,0 +1,6 @@
+#!/bin/sh
+shelib_show_manifest () 
+{ 
+    echo ${this}${SHELIB_MODULE_VERSION:+-$SHELIB_MODULE_VERSION} ${SHELIB_MODULE_DESC:+\ $SHELIB_MODULE_DESC};
+    test ! -z "$SHELIB_MODULE_SHORT_USAGE" && echo \ \ usage: $SHELIB_MODULE_SHORT_USAGE
+}

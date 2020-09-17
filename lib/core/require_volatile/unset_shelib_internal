@@ -1,0 +1,8 @@
+#!/bin/sh
+unset_shelib_internal () 
+{ 
+    for shelib_k in shelib_loading_target shelib_load_shpkg_content shelib_load_shpkg_dir unset_internal;
+    do
+        unset $shelib_k;
+    done
+}

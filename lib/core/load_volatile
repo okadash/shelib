@@ -1,0 +1,10 @@
+#!/bin/sh
+# load volatile funcitons for shelib-builtins
+load_volatile(){ #<function name>
+
+  sanitize $1
+  test -d ${SHELIB_DIR}/core/${1:?@core/load_volatile: argument needed!;}_volatile \
+    || throw ${1}_volatile not found;
+  for shelib_i in ${SHELIB_DIR}/core/${1}_volatile/*; do . $shelib_i; done
+
+}

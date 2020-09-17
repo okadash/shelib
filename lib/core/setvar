@@ -2,8 +2,8 @@
 # setter for any variable
 setvar(){
   test $# -eq 2 || throw just two arguments needed
-  sanitize $1 $2
+  sanitize "$1" "$2"
   : ${this_id:?setvar: this_id not assigned, abort!}
-  eval "$1_$this_id=$2"; 
+  eval "$1_$this_id='$2'"; 
   return 0
 }
