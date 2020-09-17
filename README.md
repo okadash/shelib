@@ -45,7 +45,7 @@ cd shelib
 shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. For OOP in shelib, see [this](https://shell-and-oop.githubusercontent.com).
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
-* `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. 
+* `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
 
 ## shelib initiator
@@ -71,12 +71,12 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 
 | name | description |
 | --- | --- |
-| `callstack` | call shelib pre-defined loop |
 | `this` | object referencing command |
 | `require` | load dependency |
 | `throw` | throw exception and exit with status 1 |
 | `chk` | validate the type of the argument |
 | `sanitize` | sanitize arguments for invalid/malformed commandline argument |
+| `shiftstack` | call shelib pre-defined loop agian |
 | `setexec` | set execute command for shelib callstack |
 | `silent` | suppress command output and return status |
 | `askyn` | ask y/n and return 0 or 1 |
