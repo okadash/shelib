@@ -48,6 +48,8 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
 
+For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
+
 ## shelib initiator
 These functions are reserved inside `cook` script. If initiator functions below declared, they are invoked at once for the shelib function.
 
@@ -81,8 +83,6 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `askyn` | ask y/n and return 0 or 1 |
 | `showhelp` | show help for the shelib function |
 | `this` | object referencing command (experimental) |
-
-For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
 # shelib packages
 
