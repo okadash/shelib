@@ -4,7 +4,6 @@ cook(){ #[-vx] #<shelib function> #$@
 
   # shelib global variables
   SHELIB_DIR=${SHELIB_DIR:-$HOME/.shef/lib}
-  readonly SHELIB_DIR
   exec_cmd=
 
   #library loading
