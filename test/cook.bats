@@ -5,6 +5,7 @@ load test_helper
 setup(){
   DUMMYFUNC_PATH=$PWD/test/bundle/bin
   DUMMYOUT_DIR=$PWD/test/.tmp
+  export SHELIB_DIR=$PWD/lib
   PATH=$DUMMYFUNC_PATH:$PWD/bin:$PATH
 
   mkdir -vp $DUMMYFUNC_PATH
