@@ -1,7 +1,7 @@
 **@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
 # About
-Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
+**Shelib , the shell scripting library**, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more **simple, readable, maintainable and well-documented** shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
 # Quick start
 shelib has *builtin functions* and initiator script `cook` .  Any user can sideload all shelib builtin function with cooking your shell function like this:
@@ -67,11 +67,10 @@ These functions are reserved inside `callstack()`. If callstack component functi
 | **execute** | execution stack. If declared, run it at the termination of the callstack. If there are any command insersion by `setexec`, command set by `setexec()` runs after *execute*. |
 
 ## shelib builtin functions
-shelib core library (lib/core) includes shelib builtin functions to be loaded from `cook`. Now we support 10 shelib builtins:
+shelib core library (lib/core) includes shelib builtin functions to be loaded from `cook`. Shelib functions mainly written to use functions below:
 
 | name | description |
 | --- | --- |
-| `this` | object referencing command |
 | `require` | load dependency |
 | `throw` | throw exception and exit with status 1 |
 | `chk` | validate the type of the argument |
@@ -81,6 +80,7 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `silent` | suppress command output and return status |
 | `askyn` | ask y/n and return 0 or 1 |
 | `showhelp` | show help for the shelib function |
+| `this` | object referencing command (experimental) |
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
