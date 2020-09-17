@@ -4,5 +4,6 @@ setexec(){ #<exec_cmd>
   test $# -eq 0 && throw argument needed
   sanitize $*
   exec_cmd="$*"
+  readonly exec_cmd
   return 0
 }

@@ -4,6 +4,8 @@ cook(){ #<shelib function> #$@
 
   # shelib global variables
   SHELIB_DIR=${SHELIB_DIR:-$HOME/.shef/lib}
+  readonly SHELIB_DIR
+  exec_cmd=
 
   #library loading
   for shelib_i in ${SHELIB_DIR:?shelib_root not set}/core/* ; do
@@ -31,7 +33,6 @@ cook(){ #<shelib function> #$@
 
   ## call shelib execution stack
   if test ${shelib_uncook:=0} != 1; then
-
 
     # set callstack name $this
     this=$1
