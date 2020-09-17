@@ -6,7 +6,7 @@ SHELIB_MODULE_VERSION=0.1.0
 SHELIB_MODULE_DESC="Any module for any commands"
 MODULE_AUTHER_NAME="Anyone"
 MODULE_AUTHER_EMAIL="john@example.com"
-MODULE_REPO_BASE="https://github.com/example/example
+MODULE_REPO_BASE="https://github.com/example/example"
 
 MODULE_OPTION_DEFAULT_DESC="<command>"
 MODULE_SUBCOMMAND_DEFAULT_DESC=

@@ -1,6 +1,6 @@
 #!/bin/sh
 # shelib function initiator command
-cook(){ #<shelib function> #$@
+cook(){ #[-vx] #<shelib function> #$@
 
   # shelib global variables
   SHELIB_DIR=${SHELIB_DIR:-$HOME/.shef/lib}
