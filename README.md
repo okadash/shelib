@@ -1,7 +1,7 @@
 **@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
 # About
-**Shelib , the shell scripting library**, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more **simple, readable, maintainable and well-documented** shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
+Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more **simple, readable, maintainable and well-documented** shell scripts and shell functions. sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
 # Quick start
 shelib has *builtin functions* and initiator script `cook` .  Any user can sideload all shelib builtin function with cooking your shell function like this:
@@ -84,7 +84,7 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
-## shelib packages
+# shelib packages
 
 You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
 
