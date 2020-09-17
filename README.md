@@ -42,7 +42,7 @@ cd shelib
 
 # Features
 
-shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. For OOP in shelib, see [this](https://shell-and-oop.githubusercontent.com).
+shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. 
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
