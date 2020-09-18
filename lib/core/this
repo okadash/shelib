@@ -76,8 +76,7 @@ this (){
   }
 
   enhash(){
-    echo $* 
-    #echo $* | sha384sum | cut -c 1-5
+    echo $* | sha256sum | cut -c 1-5
   }
 
   unset_internal(){
