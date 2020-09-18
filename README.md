@@ -7,7 +7,7 @@ Shelib , the shell scripting library, aims to be a convienient, extensible and m
 sh modes on bash, dash and busybox sh are officially supported and ksh and mksh is minor supported. Other shells are not tested but welcomed to hack.
 
 # Quick start
-shelib has *builtin functions* and initiator script `cook` .  Any user can sideload all shelib builtin function with cooking your shell function like this:
+shelib has several *builtin functions* and their initiator script `cook` .  Any user can sideload all shelib builtin function with cooking your shell function like this:
 ```
 #!/bin/sh
 
@@ -49,7 +49,7 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
-* If you `shift` argument, next callstack automatically executed for further argument parsing but if not, shelib function will immiediatly terminate with `execute` function.
+* If you invoke `stackshift`, next callstack automatically executed for further argument parsing. But if not, shelib function will immiediatly terminate with `execute` function.
 
 For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/INTERNAL.md).
 
@@ -87,7 +87,7 @@ shelib core library (lib/core) includes shelib builtin functions to be loaded fr
 | `showhelp` | show help for the shelib function |
 | `this` | object referencing command (experimental) |
 
-# shelib packages
+# Shelib packages
 
 You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
 
