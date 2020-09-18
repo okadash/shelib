@@ -1,3 +1,4 @@
+#!/bin/sh
 shobj_part_parser () 
 { 
     case $1 in 

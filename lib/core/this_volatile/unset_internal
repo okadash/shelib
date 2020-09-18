@@ -1,3 +1,4 @@
+#!/bin/sh
 unset_internal () 
 { 
     unset this_chkarg shobj_id_set this_parseargs;

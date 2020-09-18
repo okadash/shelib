@@ -1,3 +1,4 @@
+#!/bin/sh
 shobj_id_set () 
 { 
     test -z "$1" || { 

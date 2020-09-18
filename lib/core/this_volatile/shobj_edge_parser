@@ -1,3 +1,4 @@
+#!/bin/sh
 shobj_edge_parser () 
 { 
     case "`getvar shobj_op_type`" in 

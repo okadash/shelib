@@ -1,3 +1,4 @@
+#!/bin/sh
 this_parseargs () 
 { 
     shobj_target_desc="${*//=/\ =\ }";
