@@ -1,0 +1,4 @@
+this_chkarg () 
+{ 
+    grep -E =\.\*= > /dev/null 2> /dev/null && throw @core/this: invalid syntax '=.*=' detected
+}

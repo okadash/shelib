@@ -1,0 +1,4 @@
+enhash () 
+{ 
+    echo $* | sha256sum | cut -c 1-5
+}

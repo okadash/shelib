@@ -1,0 +1,28 @@
+this_parseargs () 
+{ 
+    shobj_target_desc="${*//=/\ =\ }";
+    for shelib_k in $shobj_target_desc;
+    do
+        sanitize $shelib_k;
+    done;
+    setvar shobj_op_type null;
+    shobj_id_set "$shobj_id";
+    IFS=\ .;
+    i=0;
+    for shelib_k in $shobj_target_desc;
+    do
+        shobj_id="${shobj_id}_`enhash $shelib_k`";
+        shobj_part_parser $shelib_k;
+    done;
+    case "`getvar shobj_op_type`" in 
+        assign)
+            :
+        ;;
+        func)
+
+        ;;
+        null)
+
+        ;;
+    esac
+}
