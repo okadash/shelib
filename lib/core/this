@@ -1,0 +1,94 @@
+#!/bin/sh
+this (){
+
+  this_chkarg(){
+    grep -E =\.\*= > /dev/null 2> /dev/null && throw @core/this: invalid syntax '=.*=' detected
+  }
+
+  this_envinit(){ shobj_id_old_id=; }
+
+  shobj_id_set(){ #<preset_id>
+    test -z "$1" \
+      || { shobj_id_old_id=$shobj_id; shobj_id=${shobj_name:-$this}_${this_id:?this: \$this_id not set!}; }
+    test -z "$1" \
+      && shobj_id=${shobj_name:-$this}_${this_id:?this: \$this_id not set!}
+  }
+
+  this_parseargs(){
+
+    shobj_target_desc="${*//=/\ =\ }"
+    for shelib_k in $shobj_target_desc; do sanitize $shelib_k; done
+    
+    setvar shobj_op_type null
+
+    shobj_id_set "$shobj_id"
+
+    IFS=\ .; 
+    
+    i=0
+    for shelib_k in $shobj_target_desc; do 
+      shobj_id="${shobj_id}_`enhash $shelib_k`"  ; 
+      shobj_part_parser $shelib_k
+    done
+
+    case "`getvar shobj_op_type`" in 
+      assign) : ;;
+      func) ;;
+      null) ;;
+    esac
+  }
+
+  shobj_part_parser(){
+    case $1 in
+      this) 
+      ## object assignment
+      ## this.obj.var = this.shobj_id_old.var|func description
+        test "`getvar shobj_op_type`" != assign && throw @core/this: invalid syntax \(duplicated this description\) 
+	shift;
+	silent this $@.show || throw @core/this/parser: this $@ exit with status 1;
+	shobj_id=$shobj_id_old
+	setvar "${shobj_id}_`enhash value`" `this $@.show`
+	shobj_id=$shobj_id_old
+	;;
+      show)
+      ## variable descriptor
+        test $# -eq 1 || throw @core/this/parser: invalid syntax \(reserved keyword show used in object reference\)
+	silent getvar "${shobj_id%_*}_`enhash value`" || throw @core/this/parser: \[invalid reference\] "${shobj_id%_*}_`enhash value`" not assigned
+	getvar "${shobj_id%_*}_`enhash value`"
+        ;;
+      \=) setvar shobj_op_type assign;
+        shobj_id=${shobj_id%_*}
+        shift;;
+      *) shobj_edge_parser $@; shift ;;
+      esac 
+  }
+
+  shobj_edge_parser(){
+    case "`getvar shobj_op_type`" in
+      assign) 
+        setvar "${shobj_id%_*}_`enhash value`" $*; 
+
+        break ;;
+      func) setvar "${shobj_id}_`enhash func`" ;;
+      *) 
+        : ;;
+    esac
+  }
+
+  enhash(){
+    echo $* 
+    #echo $* | sha384sum | cut -c 1-5
+  }
+
+  unset_internal(){
+    unset this_chkarg shobj_id_set this_parseargs
+    unset shobj_id shobj_id_old_id
+  }
+
+  test $# -eq 0 && throw @core/this: argument needed
+
+  echo $* | this_chkarg
+  this_envinit
+  this_parseargs ${@#-*\ }
+  unset_internal
+}
