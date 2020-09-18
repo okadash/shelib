@@ -1,0 +1,28 @@
+#!/bin/sh
+shobj_part_parser () 
+{ 
+    case $1 in 
+        this)
+            test "`getvar shobj_op_type`" != assign && throw @core/this: invalid syntax \(duplicated this description\);
+            shift;
+            silent this $@.show || throw @core/this/parser: this $@ exit with status 1;
+            shobj_id=$shobj_id_old;
+            setvar "${shobj_id}_`enhash value`" `this $@.show`;
+            shobj_id=$shobj_id_old
+        ;;
+        show)
+            test $# -eq 1 || throw @core/this/parser: invalid syntax \(reserved keyword show used in object reference\);
+            silent getvar "${shobj_id%_*}_`enhash value`" || throw @core/this/parser: \[invalid reference\] "${shobj_id%_*}_`enhash value`" not assigned;
+            getvar "${shobj_id%_*}_`enhash value`"
+        ;;
+        \=)
+            setvar shobj_op_type assign;
+            shobj_id=${shobj_id%_*};
+            shift
+        ;;
+        *)
+            shobj_edge_parser $@;
+            shift
+        ;;
+    esac
+}

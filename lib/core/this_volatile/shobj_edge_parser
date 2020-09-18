@@ -1,0 +1,16 @@
+#!/bin/sh
+shobj_edge_parser () 
+{ 
+    case "`getvar shobj_op_type`" in 
+        assign)
+            setvar "${shobj_id%_*}_`enhash value`" $*;
+            break
+        ;;
+        func)
+            setvar "${shobj_id}_`enhash func`"
+        ;;
+        *)
+            :
+        ;;
+    esac
+}

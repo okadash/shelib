@@ -1,0 +1,12 @@
+#!/bin/sh
+this (){
+  IFS=\ 
+  load_volatile this
+
+  test $# -eq 0 && throw @core/this: argument needed
+
+  echo $* | this_chkarg
+  this_envinit
+  this_parseargs ${@#-*\ }
+  unset_internal
+}

@@ -1,0 +1,9 @@
+#!/bin/sh
+shobj_id_set () 
+{ 
+    test -z "$1" || { 
+        shobj_id_old_id=$shobj_id;
+        shobj_id=${shobj_name:-$this}_${this_id:?this: \$this_id not set!}
+    };
+    test -z "$1" && shobj_id=${shobj_name:-$this}_${this_id:?this: \$this_id not set!}
+}

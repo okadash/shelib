@@ -10,6 +10,6 @@ callstack(){ #$@
   done
   #execute stack set with set_exec and no execute()
   silent type execute && execute
-  silent type execute || ${exec_cmd:=throw exec_cmd not set};
+  silent type execute || ${exec_cmd:?@core/callstack: exec_cmd not set!};
   exit
 }
