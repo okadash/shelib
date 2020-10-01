@@ -1,0 +1,9 @@
+#!/bin/sh
+shelib_chk_helpdoc_exist () 
+{ 
+    if shelib_showhelp_core ${1:?shelib_chk_helpdoc_exist: argument needed} > /dev/null 2> /dev/null; then
+        return 0;
+    else
+        return 1;
+    fi
+}

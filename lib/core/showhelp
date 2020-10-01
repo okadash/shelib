@@ -7,9 +7,12 @@ showhelp(){ #[--all]
   shelib_show_manifest
   test "$1" = "--short" || echo usage:;
   for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
-    chk_helpdoc_exist $shelib_i && shelib_show_usage $shelib_i; done
+    shelib_chk_helpdoc_exist $shelib_i \
+      && shelib_show_usage $shelib_i; done
   test "$1" = "--short" || \
     for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
-      chk_helpdoc_exist $shelib_i && showhelp_detail $shelib_i ; done
+      shelib_chk_helpdoc_exist $shelib_i \
+        && shelib_showhelp_detail $shelib_i ; done
   unset_shelib_internal
 }
+

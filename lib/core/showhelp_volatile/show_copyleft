@@ -1,5 +1,0 @@
-#!/bin/sh
-show_copyleft () 
-{ 
-    echo by\ \ ${MODULE_AUTHER_NAME} \<${MODULE_AUTHER_EMAIL}\>
-}

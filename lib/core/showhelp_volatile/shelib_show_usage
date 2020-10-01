@@ -13,5 +13,5 @@ shelib_show_usage ()
             return 0
         ;;
     esac;
-    echo \ \ $this [`showhelp_inline $1`] "$MODULE_DEFAULT_DESC"
+    echo \ \ $this [`shelib_showhelp_inline $1`] "$MODULE_DEFAULT_DESC"
 }

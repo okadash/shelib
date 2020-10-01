@@ -1,8 +1,0 @@
-#!/bin/sh
-showhelp_inline () 
-{ 
-    for shelib_k in '\*' "-vE ^.+(\*|${SHELIB_HELP_MISC:-MISC|}BREAK_OPT).*$" "-E ^[^\\\*]+BREAK_OPT";
-    do
-        showhelp_core ${1:?showhelp_inline: arguemnt_needed} | grep $shelib_k | sed -r -e "s/(\)|\|).*//g" -e s/\#\#\.\+//g | grep -vE "^[[:blank:]]*$" | tr -d \\\  | tr \\\n \\\| | sed -r -e s/\\\|\ \*\$// | sed -r -e s/\\\|-//g || return 1;
-    done | sed -r -e "s/[[:alnum:]\*]-/&[/g" -e "s/-\[/] [-/g"
-}
