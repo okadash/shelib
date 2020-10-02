@@ -10,6 +10,10 @@ require(){
     : ${shelib_loading_target:=${SHELIB_DIR:?SHELIB_DIR not defined}/${shelib_i##@}}
     case $shelib_i in
       +*) ## +submod syntax: load shelib submodule dir (valid syntax in modules)
+        #showhelp support for submodules
+        shelib_showhelp_target=${SHELIB_DIR}/${this:?this not set}/${shelib_i##+}/this
+        shelib_helpdoc_header=.
+
         shelib_load_shpkg_dir ${SHELIB_DIR}/${this:?this not set}/${shelib_i##+} ;;
       @*/*) ## @shpkg/shmod syntax: load a shelib module or directory from shpkg
         shelib_load_shpkg_content $shelib_loading_target ;;

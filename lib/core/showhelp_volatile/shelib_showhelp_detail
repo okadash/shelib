@@ -1,12 +1,10 @@
 #!/bin/sh
 shelib_showhelp_detail () 
 { 
-    echo $1 \
-      | sed -r -e s/SHELIB_//g -e s/\$/:/ \
-      | tr A-Z a-z \
-      | tr -d \\\n;
     shelib_showhelp_core ${1:?shelib_showhelp_detail: argument needed} \
-      | sed -r -e s/\^/SOL/g -e "s/SOL[[:blank:]]*##/\t##/g" \
+      | sed -r \
+        -e s/\^/SOL/g \
+	-e "s/SOL[[:blank:]]*##/\t##/g" \
       | tr -d \\\n \
       | sed -e s/SOL/\\\n/g \
       | tabfix \

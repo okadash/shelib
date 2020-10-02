@@ -2,17 +2,37 @@
 # show help for shelib-style inline document
 showhelp(){ #[--all]
 
+  shelib_help_header=
+
   load_volatile showhelp
 
   shelib_show_manifest
-  test "$1" = "--short" || echo usage:;
-  for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
+  test "$1" != "--short" && echo usage:;
+  for shelib_i in \
+    ${shelib_helpdoc_header:-\#SHELIB_OPTIONS} \
+    ${shelib_helpdoc_header:-\#SHELIB_SUBCOMMANDS}; 
+  do
+    shelib_showusage_target=${shelib_showhelp_target%/*}
+    shelib_showusage_target=${shelib_showusage_target#*/}
     shelib_chk_helpdoc_exist $shelib_i \
-      && shelib_show_usage $shelib_i; done
-  test "$1" = "--short" || \
-    for shelib_i in SHELIB_OPTIONS SHELIB_SUBCOMMANDS; do
-      shelib_chk_helpdoc_exist $shelib_i \
-        && shelib_showhelp_detail $shelib_i ; done
+      && shelib_show_usage $shelib_i ${shelib_showusage_target}
+    ${shelib_helpdoc_header:+break}
+  done
+  test "$1" != "--short" && \
+    for shelib_i in \
+      ${shelib_helpdoc_header:-\#SHELIB_OPTIONS} \
+      ${shelib_helpdoc_header:-\#SHELIB_SUBCOMMANDS}
+    do
+      shelib_chk_helpdoc_exist $shelib_i && {
+        echo ${shelib_i//SHELIB_/} \
+          | tr A-Z a-z \
+          | tr -d \#\\\n \
+          | sed -r -e s/\^.\$/subcommands/ \
+               -e s/\$/:/ 
+        shelib_showhelp_detail $shelib_i
+      }
+      ${shelib_helpdoc_header:+break}
+    done
   unset_shelib_internal
 }
 

@@ -1,5 +1,5 @@
 #!/bin/sh
 shelib_showhelp_getheader () 
 { 
-    echo ${help_header:?shelib help_header not set!}
+    echo ${shelib_help_header:?shelib help_header not set!}
 }

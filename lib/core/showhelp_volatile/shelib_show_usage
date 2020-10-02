@@ -1,17 +1,7 @@
 #!/bin/sh
 shelib_show_usage () 
 { 
-    chk -e $1;
-    case $1 in 
-        SHELIB_OPTIONS)
-            MODULE_DEFAULT_DESC=$MODULE_OPTION_DEFAULT_DESC
-        ;;
-        SHELIB_SUBCOMMANDS)
-            MODULE_DEFAULT_DESC=$MODULE_SUBCOMMAND_DEFAULT_DESC
-        ;;
-        *)
-            return 0
-        ;;
-    esac;
-    echo \ \ $this [`shelib_showhelp_inline $1`] "$MODULE_DEFAULT_DESC"
+    : ${1:?shelib_show_usage: argument needed!}
+
+    echo \ \ $this ${2##*/} ${3##*/} ${4##*/} ${shelib_helpdoc_header//./} [`shelib_showhelp_inline $1`]
 }
