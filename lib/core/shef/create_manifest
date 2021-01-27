@@ -1,0 +1,13 @@
+shef_create_manifest(){ #[repo_path]
+
+[ -f manifest ] && { throw manifest exists; }
+cat > lib/manifest <<EOM
+SHELIB_MODULE_NAME="${shef_repo_name}"
+SHELIB_MODULE_VERSION="${shef_repo_version}"
+SHELIB_MODULE_DESC="${shef_repo_desc}"
+SHELIB_MODULE_AUTHER_NAME="${shef_repo_auther}"
+SHELIB_MODULE_AUTHER_EMAIL="${shef_repo_email}"
+SHELIB_MODULE_REPO_BASE="$1"
+EOM
+
+}

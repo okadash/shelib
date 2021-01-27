@@ -1,0 +1,9 @@
+chk_pkgcomponent_essential(){
+  test -d "${shef_bindir:-bin}" \
+    || throw bin directory not found
+  test -d lib \
+    || throw library directory not found
+  test ! -z "$shef_manifest_required" \
+    && test ! -f lib/manifest \
+    && throw manifest not found;
+}

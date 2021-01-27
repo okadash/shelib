@@ -1,0 +1,4 @@
+remove_modules(){ 
+  silent getvar module_dir; 
+  rm -r ${shef_verbose_opt:-} ${shef_force_opt:-} $(getvar module_dir); 
+}

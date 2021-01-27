@@ -1,0 +1,7 @@
+shef_simplify_repo(){ #<repo_url>
+  : ${1:?repo_url not specified!}
+  shef_repo_url=${1#/}
+  echo "$(basename ${shef_repo_url%/*})/${1##*/}"
+}
+
+
