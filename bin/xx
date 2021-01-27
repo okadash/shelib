@@ -1,0 +1,29 @@
+#!/bin/sh
+# 2x: FIX any executable scripts, written in plain text
+
+xx(){
+  set_target(){ target="${target} ${1:?target not specified!}"; }
+  loadenv(){ target=; }
+  parseargs(){
+    chk -e "$1" -m at least one argument needed
+    case $1 in 
+    ## shelib module editor mode
+    @*)
+      [ -d $SHELIB_DIR/${1#@} ] \
+        || throw shelib module $1 not exist
+      set_target $SHELIB_DIR/${1#@}
+      [ -f "$(readlink -f $SHELIB_DIR/../bin/${1##@})" ] \
+        && set_target "$(readlink -f ${SHELIB_DIR%/*}/bin/${1#@})"
+      ;;
+    "") throw no argument;;
+    *) for i in $@; do chk -x $1; set_target `command -v $i`; done ;;
+    esac
+  }
+  execute(){
+    sanitize "${EDITOR:?EDITOR not set}"
+    [ $EDITOR = "$(command -v vi)" ] || \
+    [ $EDITOR = "$(command -v vim)" ] && opt=-O
+    $EDITOR $opt $target
+  }
+}
+cook xx $@
