@@ -1,16 +1,6 @@
 ### shell scripting library for /bin/sh
 
-[About shelib](#ABOUT)
-
-[Shef package manager](SHEF)
-
-[Builtin Functions](BUILTIN_FUNCTIONS)
-
-[Callstack Components](CALLSTACK_COMPONENT)
-
-[Callstack Internal](CALLSTACK_INTERNAL)
-
-[Reserved Keywords](RESERVED_KEYWORDS)
+[About shelib](#ABOUT) | [Shef package manager](SHEF) | [Builtin Functions](BUILTIN_FUNCTIONS) | [Callstack Components](CALLSTACK_COMPONENT) | [Callstack Internal](CALLSTACK_INTERNAL) | [Reserved Keywords](RESERVED_KEYWORDS)
 
 
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. 
@@ -46,13 +36,11 @@ cd shelib
 
 # Usage sample
 
+[@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for /bin/sh
+
+[@okadash/indigo-cli](https://github.com/okadash/indigo) Indigo API client tool
+
 [@okadash/nik](https://github.com/okadash/nik) note taking wrapper script for vimmers
-
-[@okadash/shef](https://github.com/okadash/shef) shelib function package manager
-
-[@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for docker/lxc/lxd
-
-[@okadash/indigo](https://github.com/okadash/indigo) Indigo API cli tool
 
 # Features
 
@@ -62,14 +50,14 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you invoke `stackshift`, next callstack automatically executed for further argument parsing. But if not, shelib function will immiediatly terminate with `execute` function.
 
-For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/Callstack-Components.md).
+For more details, see [this](CALLSTACK_COMPONENTS).
 
 # Shelib packages
 
 You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
 
-See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
+See also [shef](SHEF) for shelib package manegement.
 
 # Contact
 
-Okadarian Saru <okadas@tanban.org>
+Okadarian Saru <okadas[at]tanban.org>
