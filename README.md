@@ -33,15 +33,13 @@ cd shelib
 ./install.sh
 ```
 
-# Usage sample
+# Usage example
 
-[@okadash/nik](https://github.com/okadash/nik) note taking wrapper script for vimmers
-
-[@okadash/shef](https://github.com/okadash/shef) shelib function package manager
-
-[@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for docker/lxc/lxd
-
-[@okadash/indigo](https://github.com/okadash/indigo) Indigo API cli tool
+| repo | description |
+| --- | --- |
+| [@okadash/cosh](https://github.com/okadash/cosh) | container shell toolkit for /bin/sh |
+| [@okadash/indigo](https://github.com/okadash/indigo) | Indigo API client tool |
+| [@okadash/nik](https://github.com/okadash/nik) | note taking wrapper script for vimmers |
 
 # Features
 
@@ -55,7 +53,7 @@ For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/
 
 # Shelib packages
 
-You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
+You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized VCS for shelib packages. Just use git repository to share your shelib packages. 
 
 See also [shef documentation](https://github.com/okadash/shelib/blob/master/docs/SHEF.md) for shelib package manegement.
 
