@@ -1,4 +1,4 @@
-**@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
+**@core** --- the shell scripting library  [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
 
 # About
 
@@ -43,7 +43,7 @@ cd shelib
 
 # Features
 
-shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. 
+shelib is designed to supply unified argument parsing and documentation mechanisms in shell script. 
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
