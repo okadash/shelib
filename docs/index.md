@@ -1,7 +1,8 @@
 ### shell scripting library for /bin/sh
 
-[About shelib](#ABOUT) | [Shef package manager](SHEF) | [Builtin Functions](BUILTIN_FUNCTIONS) | [Callstack Components](CALLSTACK_COMPONENT) | [Callstack Internal](CALLSTACK_INTERNAL) | [Reserved Keywords](RESERVED_KEYWORDS)
+[About ](index.md#shell-scripting-library-for-binsh) | [Shef package manager](SHEF) | [Builtin Functions](BUILTIN-FUNCTIONS) 
 
+[Callstack Components](CALLSTACK-COMPONENT) | [Callstack Internal](CALLSTACK-INTERNAL) | [Reserved Keywords](RESERVED-KEYWORDS)
 
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. 
 
@@ -50,7 +51,7 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you invoke `stackshift`, next callstack automatically executed for further argument parsing. But if not, shelib function will immiediatly terminate with `execute` function.
 
-For more details, see [this](CALLSTACK_COMPONENTS).
+For more details, see [this](CALLSTACK-COMPONENTS).
 
 # Shelib packages
 
