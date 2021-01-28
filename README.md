@@ -51,7 +51,7 @@ shelib is designed to reduce loop declarations, unify argument parsing mechanism
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you invoke `stackshift`, next callstack automatically executed for further argument parsing. But if not, shelib function will immiediatly terminate with `execute` function.
 
-For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/Callstack-Components.md).
+For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/CALLSTACK_COMPONENTS.md).
 
 # Shelib packages
 
