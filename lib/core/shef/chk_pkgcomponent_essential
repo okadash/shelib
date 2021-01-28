@@ -1,8 +1,12 @@
 chk_pkgcomponent_essential(){
-  test -d "${shef_bindir:-bin}" \
-    || throw bin directory not found
-  test -d lib \
-    || throw library directory not found
+  if test ! -d "${shef_bindir:-bin}"; then
+    askyn bin directory not found for the package. force to install? [y/n] || throw abort.
+    mkdir -v bin
+  fi
+  if test ! -d lib; then
+    askyn lib directory not found for the package. force to install? [y/n] || throw abort.
+    mkdir -v lib
+  fi
   test ! -z "$shef_manifest_required" \
     && test ! -f lib/manifest \
     && throw manifest not found;
