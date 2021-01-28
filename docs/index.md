@@ -2,7 +2,7 @@
 
 [About ](index.md#shell-scripting-library-for-binsh) | [Shef package manager](SHEF) | [Builtin Functions](BUILTIN-FUNCTIONS) 
 
-[Callstack Components](CALLSTACK-COMPONENT) | [Callstack Internal](CALLSTACK-INTERNAL) | [Reserved Keywords](RESERVED-KEYWORDS)
+[Callstack Components](CALLSTACK-COMPONENTS) | [Callstack Internal](CALLSTACK-INTERNAL) | [Reserved Keywords](RESERVED-KEYWORDS)
 
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. 
 
@@ -25,7 +25,6 @@ That's all to do, needed to load shelib builtin functions for *yourfunction*. Yo
 You can use *yourfunction* as a style-free generic shell function and any procedure can be freely written in shell script in your order, with or without usage of shelib builtin functions.
 
 (There are some limitations to load shell scripting assets for cooked functions.)
-
 
 # Install
 
