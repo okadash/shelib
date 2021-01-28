@@ -61,4 +61,4 @@ See also [@okadash/shef](https://github.com/okadash/shef) for shelib package man
 
 # Contact
 
-Okadarian Saru <okadas@tanban.org>
+Okadarian Saru <okadas[at]tanban.org>
