@@ -17,9 +17,9 @@ For other reserved keyword, see the section below.
   - shelib_load_shpkg_dir
   - unset_shelib_internal
 * showhelp uses 10 internal volatile functions. DO NOT use/declare these functions in your functions, unless your functions will be overwritten:
-  - chk_helpdoc_exist
-  - set_help_header
-  - get_help_header
+  - shelib_chk_helpdoc_exist
+  - shelib_set_help_header
+  - shelib_get_help_header
   - shelib_show_usage
   - shelib_show_manifest
   - show_copyleft
