@@ -1,6 +1,17 @@
-**@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib) [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
+### shell scripting library for /bin/sh
 
-# About
+[About shelib](#ABOUT)
+
+[Shef package manager](SHEF)
+
+[Builtin Functions](BUILTIN_FUNCTIONS)
+
+[Callstack Components](CALLSTACK_COMPONENT)
+
+[Callstack Internal](CALLSTACK_INTERNAL)
+
+[Reserved Keywords](RESERVED_KEYWORDS)
+
 
 Shelib , the shell scripting library, aims to be a convienient, extensible and modular library for /bin/sh and other shells on Unix-like systems. Load it for your scripts and make more simple, readable, maintainable and well-documented shell scripts and shell functions. 
 
