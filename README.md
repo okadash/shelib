@@ -57,7 +57,7 @@ For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/
 
 You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
 
-See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
+See also [shef documentation](https://github.com/okadash/blob/master/docs/SHEF.md) for shelib package manegement.
 
 # Contact
 
