@@ -17,7 +17,13 @@ shef_pkg_install(){
   ## network mode
     for i in $@ ; do 
       set_repo_destination $i && {
-        shef_fetchpkg $i && shef_localpkg_install
+        shef_fetchpkg $i && {
+          test ! -f manifest && {
+            shef_repo_fetchinfo $(get_repo_url)
+            shef_create_manifest $(get_repo_url)
+          }
+          shef_localpkg_install
+        }
       }
     done
   fi

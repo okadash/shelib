@@ -1,14 +1,10 @@
 shef_localpkg_install(){
     echo localinstall prompted...
     chk_pkgcomponent_essential
-    test ! -f manifest \
-      && { 
-        shef_repo_fetchinfo $(get_repo_url)
-        shef_create_manifest $(get_repo_url)
-      }
-    test -f manifest && { . lib/manifest || throw manifest loading error; }
-    echo installing @${SHELIB_MODULE_NAME:="$(basename $PWD)"}...;
-    setvar module_dir $SHELIB_DIR/${SHELIB_MODULE_NAME}
+    test -f lib/manifest && { . lib/manifest || throw manifest loading error; }
+    SHELIB_MODULE_NAME=${SHELIB_MODULE_NAME:-"$(basename $PWD)"}
+    echo installing @"$SHELIB_MODULE_NAME"...;
+    setvar module_dir "$SHELIB_DIR/${SHELIB_MODULE_NAME}"
     silent getvar module_dir
     test -d "$(getvar module_dir)" \
       && { test ! -z "$shef_force_opt" || askyn shelib module @${SHELIB_MODULE_NAME} already exist in $(getvar module_dir), overwrite?;} \
