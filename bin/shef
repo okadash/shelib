@@ -1,5 +1,9 @@
 #!/bin/sh
-# shef: a package manager for shelib modules
+# shef - a package manager for shelib modules
+# usage: shef [install|list|search|update|remove|help]
+# requirement: shelib(>=0.5.0)
+# license: MIT
+# repository: https://github.com/okadash/shelib
 
 shef(){
 
@@ -20,6 +24,10 @@ loadenv(){
 
 parsecmds(){
   case $1 in 
+    init) 
+    ## init shef repository in current directory
+    setexec shef_pkg_repo_init $2 ;;
+
     search) #pkgdesc
     ## search package with description
     setexec shef_pkg_search $2 ;;
