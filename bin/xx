@@ -1,29 +1,51 @@
 #!/bin/sh
-# 2x: FIX any executable scripts, written in plain text
+# xx - fix (or 2x) scripts or shelib modules, written in plain text
+# usage: xx [command] [@module]
+# license: MIT
+# repository: https://github.com/okadash/shelib
 
 xx(){
-  set_target(){ target="${target} ${1:?target not specified!}"; }
-  loadenv(){ target=; }
-  parseargs(){
-    chk -e "$1" -m at least one argument needed
-    case $1 in 
+  _target=
+  _opt=
+  abort(){ echo $* >&2 ; exit 1; }
+  edit_self(){ "$EDITOR" $0; }
+  sanitize(){ [ "$1" != "*;" ]; }
+  is_exist(){ [ -f "$1" ]; }
+  set_target(){ #<target>
+    _target="${_target} ${1:?set_target: no target specified!}"; 
+  }
+  parse_target(){ #<target>
+    sanitize "$1"
+    case "$1" in 
     ## shelib module editor mode
     @*)
-      [ -d $SHELIB_DIR/${1#@} ] \
-        || throw shelib module $1 not exist
-      set_target $SHELIB_DIR/${1#@}
-      [ -f "$(readlink -f $SHELIB_DIR/../bin/${1##@})" ] \
+      [ -d ${SHELIB_DIR:=$HOME/.shef/lib}/${1#@} ] \
+        || abort shelib module "$1" not found
+      set_target "$SHELIB_DIR"/"${1#@}"
+      [ -f "$(readlink -f $SHELIB_DIR/../bin/"${1##@}")" ] \
         && set_target "$(readlink -f ${SHELIB_DIR%/*}/bin/${1#@})"
       ;;
-    "") throw no argument;;
-    *) for i in $@; do chk -x $1; set_target `command -v $i`; done ;;
+    "") abort no argument;;
+    *) is_exist "$(command -v $1)" && set_target "$(command -v $1)" ;;
     esac
   }
-  execute(){
-    sanitize "${EDITOR:?EDITOR not set}"
-    [ $EDITOR = "$(command -v vi)" ] || \
-    [ $EDITOR = "$(command -v vim)" ] && opt=-O
-    $EDITOR $opt $target
+  parse_target_recursive(){ #<targets...>
+    parse_target $@
+    shift
+    [ $# -ge 1 ] && parse_target_recursive $@
+  }
+  get_editor_opt(){ #void
+    case "${EDITOR##*/}" in vi|vim) _opt=-O;; esac
+  }
+
+  main(){
+    sanitize "${EDITOR:?EDITOR environmental variable must be set!}"
+    sanitize "$*"
+    [ $# -eq 0 ] && { edit_self; exit; }
+    parse_target_recursive $@
+    get_editor_opt
+    sanitize "$_target"
+    "$EDITOR" "$_opt" $_target
   }
 }
-cook xx $@
+xx main $@
