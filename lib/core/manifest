@@ -3,6 +3,6 @@
 SHELIB_MODULE_VERSION=0.5.4
 SHELIB_MODULE_DESC="Essential library for shelib, shef and all shelib function"
 SHELIB_MODULE_AUTHER_NAME="Okadarien Saru"
-SHELIB_MODULE_AUTHER_EMAIL="okadas@tanba.org"
+SHELIB_MODULE_AUTHER_EMAIL="okadas@tanban.org"
 SHELIB_MODULE_REPO_BASE="https://github.com/okadash/shelib"
 SHELIB_MODULE_LICENSE="MIT"
