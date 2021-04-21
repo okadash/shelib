@@ -47,5 +47,6 @@ xx(){
     sanitize "$_target"
     "$EDITOR" "$_opt" $_target
   }
+  $@
 }
 xx main $@
