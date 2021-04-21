@@ -1,0 +1,16 @@
+shef_setag(){
+  git reset --hard "$(shef_localrepo_tag_get)"
+}
+
+shef_localrepo_tag_get(){ #[newest]
+  git tag -l \
+    | grep \
+      "$(
+        git tag -l \
+          | tr -d vV \
+          | sort -t . -nr -k 1 \
+          | head -1
+      )" \
+    | head -1 \
+    || echo HEAD
+}

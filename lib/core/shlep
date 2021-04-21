@@ -1,0 +1,6 @@
+shlep(){ #expression
+  : ${1:?shlep: argument must be specified!}
+  while read shelib_readline; do 
+    test "$shelib_readline" != "${shelib_readline#*$1*}" && echo "$shelib_readline"
+  done
+}

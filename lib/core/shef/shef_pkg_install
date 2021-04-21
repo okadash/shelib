@@ -1,0 +1,30 @@
+shef_pkg_install(){
+  while :; do
+    case $1 in  
+      -y|--yes) shef_force_opt=-f; shift;; ## non-interactive install 
+      -f|--force) shef_force_opt=-f; shift;; ## non-interactive install (same to -y)
+      --dev) shef_dev_mode=1; shift;; ## developer mode for git vcs locating
+      -v|--verbose) shef_verbose_opt=-v; shift;; ## verbose install 
+      -*) throw unknwon option $1;;
+      *) break;;
+    esac
+  done
+  ## local mode
+  if test $# -eq 0 || test ! -z "${shef_force_opt}${shef_verbose_opt}"; then
+    test $# -eq 0 || shift 
+    shef_localpkg_install $@; return ;
+  else
+  ## network mode
+    for i in $@ ; do 
+      set_repo_destination $i && {
+        shef_fetchpkg $i && {
+          test ! -f manifest && {
+            shef_repo_fetchinfo $(get_repo_url)
+            shef_create_manifest $(get_repo_url)
+          }
+          shef_localpkg_install
+        }
+      }
+    done
+  fi
+}

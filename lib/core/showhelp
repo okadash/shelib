@@ -9,8 +9,8 @@ showhelp(){ #[--all]
   shelib_show_manifest
   test "$1" != "--short" && echo usage:;
   for shelib_i in \
-    ${shelib_helpdoc_header:-\#SHELIB_OPTIONS} \
-    ${shelib_helpdoc_header:-\#SHELIB_SUBCOMMANDS}; 
+    ${shelib_helpdoc_header:-#SHELIB_OPTIONS} \
+    ${shelib_helpdoc_header:-#SHELIB_SUBCOMMANDS}; 
   do
     shelib_showusage_target=${shelib_showhelp_target%/*}
     shelib_showusage_target=${shelib_showusage_target#*/}
@@ -20,11 +20,11 @@ showhelp(){ #[--all]
   done
   test "$1" != "--short" && \
     for shelib_i in \
-      ${shelib_helpdoc_header:-\#SHELIB_OPTIONS} \
-      ${shelib_helpdoc_header:-\#SHELIB_SUBCOMMANDS}
+      ${shelib_helpdoc_header:-#SHELIB_OPTIONS} \
+      ${shelib_helpdoc_header:-#SHELIB_SUBCOMMANDS}
     do
       shelib_chk_helpdoc_exist $shelib_i && {
-        echo ${shelib_i//SHELIB_/} \
+        echo ${shelib_i##*SHELIB_} \
           | tr A-Z a-z \
           | tr -d \#\\\n \
           | sed -r -e s/\^.\$/subcommands/ \

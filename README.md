@@ -59,6 +59,6 @@ You can write own shelib funcitons and distribute them as **shelib packages**. T
 
 See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
 
-# Contact
+# Author
 
-shelib-support@lab.sysnk.net (SysNaka Lab.)
+Okadarian Saru <okadas[at]tanban.org>

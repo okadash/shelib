@@ -1,0 +1,12 @@
+shef_repo_fetchinfo(){
+  chk_repo_destination ${1:?shef_repo_getinfo: argument needed}
+  shef_repo_full_line="$(curl -sL $1)"
+
+  shef_repo_name="$(shef_simplify_repo $1)"
+  shef_repo_desc="$(echo $shef_repo_full_line | shef_repo_filter_title)"
+  shef_repo_version="$(shef_localrepo_tag_get)"
+  shef_repo_auther="see repo"
+  shef_repo_email="see repo"
+}
+
+

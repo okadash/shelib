@@ -3,8 +3,8 @@ shelib_showhelp_core ()
 { 
     shelib_showhelp_setheader "$1";
     shelib_showhelp_getheader > /dev/null;
-    grep -EA100 "^ *`shelib_showhelp_getheader`" ${shelib_showhelp_target:-`/bin/sh -c "command -v  $this"`} \
-      | grep -EB100 "^ *`shelib_showhelp_getheader`" \
+    grep -EA100 "^ *$(shelib_showhelp_getheader)" "${shelib_showhelp_target:-$(which $this)}" \
+      | grep -EB100 "^ *$(shelib_showhelp_getheader)" \
       | grep -A100 case\ \\\$1 \
       | grep -B100 esac\ \*\$ \
       | grep -vE "[[:space:]^](case|esac)[[:space:]$]" \
