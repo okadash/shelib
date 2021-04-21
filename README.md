@@ -1,4 +1,4 @@
-**@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib)
+**@core** --- the shell scripting library  
 
 # About
 
