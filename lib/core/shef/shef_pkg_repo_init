@@ -1,0 +1,29 @@
+shef_pkg_repo_init(){ #<proj_name>
+  [ -z "$1" ] && { 
+    silent git status \
+      && throw "shef_pkg_repo_init: you are already in git repo.\n Change place to create a shef package project.\n (or supply project name to create a new directory.)"
+  }
+  [ -z "$1" ] || {
+    mkdir -pv "${1:?shef_pkg_repo_init: project name not specified!}" \
+      || throw shef_pkg_repo_init: failed to create a directory "$1"
+    cd "$1"
+  }
+  git init
+  shef_repo_name="${1:-${PWD##*/}}"
+  shef_repo_version=0.1.0
+  shef_repo_desc="${2:-mockup project}"
+  shef_repo_author="$(git config --list --global | shlep user.name)"
+  shef_repo_author=${shef_repo_author#user.name=}
+  shef_repo_email="$(git config --list --global | shlep user.email)"
+  shef_repo_email=${shef_repo_email#user.email=}
+  for shelib_shef_i in bin lib; do
+    mkdir -p "$shelib_shef_i" \
+      && echo "  create   /$shelib_shef_i" \
+      || throw "shef_pkg_repo_init: failed to create $shelib_shef_i"
+  done
+  silent command -v shellspec && shellspec --init
+  echo 'git repository name? (default no repo): '  | tr -d \\\n 
+  read shef_repo_base
+  shef_create_manifest "${shef_repo_base}"
+  
+}
