@@ -1,5 +1,10 @@
 #!/bin/sh
-# shelib function initiator command
+# cook - shelib function initiator command
+# usage: cook [-vx] <command> $@
+# usage: cook -V
+# license: MIT
+# repository: https://github.com/okadash/shelib
+
 cook(){ #[-vx] #<shelib function> #$@
 
   # shelib global variables

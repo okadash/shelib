@@ -3,5 +3,5 @@ shelib_show_usage ()
 { 
     : ${1:?shelib_show_usage: argument needed!}
 
-    echo \ \ $this ${2##*/} ${3##*/} ${4##*/} ${shelib_helpdoc_header//./} [`shelib_showhelp_inline $1`]
+    echo \ \ $this ${2##*/} ${3##*/} ${4##*/} ${shelib_helpdoc_header} [$(shelib_showhelp_inline $1)]
 }

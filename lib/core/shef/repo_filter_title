@@ -1,0 +1,15 @@
+
+shef_repo_filter_title(){ #<user/repo>
+  shef_repo_htmltag_start='<[[:alpha:]]+>'
+  shef_repo_htmltag_end='</[[:alpha:]]+>'
+
+  sed -r \
+    -e "s@${shef_repo_htmltag_end:?shef_repo_filter_title: htmltag_end not declared}@&\n@g" \
+    -e "s@${shef_repo_htmltag_start:?shef_repo_filter_title: htmltag_start not declared}@\n&@g" \
+    | shlep "<title" \
+    | sed -r \
+      -e "s@ *${shef_repo_htmltag_start} *@@" \
+      -e "s@ *${shef_repo_htmltag_end} *@@" \
+      -e 's@GitHub *- *[[:alnum:]_-]+/[[:alnum:]_-]+ *(: *)@@g'
+
+}

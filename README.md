@@ -1,4 +1,4 @@
-**@core** --- the shell scripting library  [![Build Status](https://travis-ci.org/okadash/shelib.svg?branch=dev)](https://travis-ci.org/okadash/shelib)
+**@core** --- the shell scripting library  [![Build status](https://ci.appveyor.com/api/projects/status/noggl5ogly15wctq?svg=true)](https://ci.appveyor.com/project/okadasd/shelib)
 
 # About
 
@@ -33,30 +33,32 @@ cd shelib
 ./install.sh
 ```
 
-# Usage example
+# Usage sample
 
-| repo | description |
-| --- | --- |
-| [@okadash/cosh](https://github.com/okadash/cosh) | container shell toolkit for /bin/sh |
-| [@okadash/indigo](https://github.com/okadash/indigo) | Indigo API client tool |
-| [@okadash/nik](https://github.com/okadash/nik) | note taking wrapper script for vimmers |
+[@okadash/nik](https://github.com/okadash/nik) note taking wrapper script for vimmers
+
+[@okadash/shef](https://github.com/okadash/shef) shelib function package manager
+
+[@okadash/cosh](https://github.com/okadash/cosh) container shell toolkit for docker/lxc/lxd
+
+[@okadash/indigo](https://github.com/okadash/indigo) Indigo API cli tool
 
 # Features
 
-shelib is designed to supply unified argument parsing and documentation mechanisms in shell script. 
+shelib is designed to reduce loop declarations, unify argument parsing mechanisms and enable object-oriented coding style in shell script. 
 
 * `cook` initiate shelib callstack for the cooked function (hereby called **shelib function**) and `callstack` function is immediately invoked after the cook execution.
 * `callstack()` function invokes reserved parsers **parseopts** and **parseargs** and if you declare these reserved parser functions inside the shelib function, each of them is invoked in this order. At last, it runs **execute**.
 * If you invoke `stackshift`, next callstack automatically executed for further argument parsing. But if not, shelib function will immiediatly terminate with `execute` function.
 
-For more details, see [this](https://github.com/okadash/shelib/blob/master/docs/CALLSTACK-COMPONENTS.md).
+For more details, see [this](https://github.com/okadash/shelib-v5/blob/master/docs/COMPONENTS.md).
 
 # Shelib packages
 
-You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized VCS for shelib packages. Just use git repository to share your shelib packages. 
+You can write own shelib funcitons and distribute them as **shelib packages**. There are no coding standard and no centralized CVS for shelib packages. Just use git repository to share your shelib packages. 
 
-See also [shef documentation](https://github.com/okadash/shelib/blob/master/docs/SHEF.md) for shelib package manegement.
+See also [@okadash/shef](https://github.com/okadash/shef) for shelib package manegement.
 
-# Contact
+# Author
 
 Okadarian Saru <okadas[at]tanban.org>

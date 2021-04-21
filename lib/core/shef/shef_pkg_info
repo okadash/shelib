@@ -1,0 +1,16 @@
+shef_pkg_info(){
+  for i in ${SHELIB_DIR}/*; do
+    test $(basename $i) = "$1" && {
+      . $i/manifest || throw manifest file not found
+      echo Name\\\t\\\t$(basename $i)
+      echo Version\\\t\\\t${SHELIB_MODULE_VERSION:-nover}
+      echo Auther\\\t\\\t${SHELIB_MODULE_AUTHER_NAME:-unknown auther} \<${SHELIB_MODULE_AUTHER_EMAIL:-unknown email}\> 
+      echo Description\\\t\\\t${SHELIB_MODULE_DESC:-no description}
+      echo Components\\\t\\\t$(ls $i | grep -vE \^manifest\$)
+      echo Repository\\\t\\\t${SHELIB_MODULE_REPO_BASE:-no repo}
+      echo Requirement\\\t\\\tno info
+      echo License\\\t\\\t${SHELIB_MODULE_LICENSE:-see repo}
+    } | tabfix | cut -c 1-72
+
+  done
+}

@@ -1,0 +1,68 @@
+#!/bin/sh
+# shef - a package manager for shelib modules
+# usage: shef [install|list|search|update|remove|help]
+# requirement: shelib(>=0.5.0)
+# license: MIT
+# repository: https://github.com/okadash/shelib
+
+shef(){
+
+loadmod(){
+  require @core/shef
+}
+
+loadenv(){
+  require git
+  unset SHELIB_MODULE_NAME
+  : ${SHELIB_DIR:?SHELIB_DIR not set};
+  SHELIB_REPO_ROOT=$SHELIB_DIR/../db
+  SHELIB_REPO_DB=$SHELIB_REPO_ROOT/packages.list
+  test ! -d $SHELIB_REPO_ROOT && mkdir -vp $SHELIB_REPO_ROOT 
+}
+
+#SHELIB_SUBCOMMANDS
+
+parsecmds(){
+  case $1 in 
+    init) 
+    ## init shef repository in current directory
+    setexec shef_pkg_repo_init $2 ;;
+
+    search) #pkgdesc
+    ## search package with description
+    setexec shef_pkg_search $2 ;;
+
+    list)
+    ## show installed package list
+    setexec shef_pkg_list ;;
+
+    info) #pkgname
+    ## show information about the package
+    setexec shef_pkg_info $2 ;;
+
+    install) #pkgname
+    ## install packege with name
+    shift;
+    setexec shef_pkg_install $@ ;;
+
+    update) 
+    ## install package from package dir
+    shift;
+    setexec shef_pkg_update $@;;
+
+    remove) #pkgname
+    ## remove packege with name
+    setexec shef_pkg_remove ;;
+
+    help) 
+    ## show this help
+    setexec showhelp --detail;;
+
+    *)
+    setexec showhelp; unknown subcommand $1;;
+  esac
+}
+#SHELIB_SUBCOMMANDS
+
+}
+cook shef $@

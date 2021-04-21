@@ -1,0 +1,8 @@
+install_modules(){ 
+  silent getvar module_dir; 
+  if test "$shef_dev_mode" = "1"; then
+    ln -sf ${shef_verbose_opt} ${shef_force_opt} $PWD/lib $(getvar module_dir);
+  else 
+    cp -a ${shef_verbose_opt} ${shef_force_opt} lib $(getvar module_dir);
+  fi
+}
